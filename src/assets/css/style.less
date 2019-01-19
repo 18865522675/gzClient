@@ -1,0 +1,98 @@
+body{
+  background-color: #f4f4f4;
+}
+.g-box{
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+//.g-app{
+//  min-height: 100vh;
+//  background-color: #fff;
+//}
+.bg_g{
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  &.bgg{background-color: #fff;min-height: 100vh;}
+}
+.el-message-box{
+  width: 560px;
+  height: 220px;
+  .el-message-box__header{
+    padding: 29px 0 0 29px;
+  }
+  .el-message-box__content{
+    padding: 50px 0;
+    text-align: center;
+    .el-message-box__message{
+      font-size: 17px;
+      color: #000;
+    }
+  }
+  .el-button--primary{
+    color: #000;
+    background-color: #ffba4e!important;
+    border-color: #ffba4e!important;
+  }
+  .el-button--small, .el-button--small.is-round{
+    padding: 10px 26px;
+  }
+  .el-button--mini, .el-button--small{
+    font-size: 15px;
+    border-radius: 20px;
+  }
+  .el-button{
+    background-color: #ffdca6;
+    border-color: #ffdca6;
+  }
+}
+.el-message{
+  top: 100px;
+  box-shadow: 0 0 20px 1px rgba(0,0,0,.2);
+}
+.m-h{
+  cursor: pointer;
+  transition: opacity .3s;
+  &:hover{
+    opacity: .8;
+    transition: opacity .3s;
+  }
+}
+.f-cb{
+  &:after{
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+.hk-in-search-bd{
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+.hk-in-search{
+  display: flex;
+  align-items: center;
+}
+.hk-in-search-in{
+  height: 34px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  padding: 0 20px;
+  margin-right: -1px;
+}
+.hk-in-search-btn{
+  background-color: #5e4eaa;
+  color: #fff;
+  font-size: 14px;
+  padding: 10px 20px;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  user-select: none;
+  &:hover{
+    opacity: .9;
+  }
+  &:active{
+    opacity: .8;
+  }
+}

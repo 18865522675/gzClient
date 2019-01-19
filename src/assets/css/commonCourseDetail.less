@@ -1,0 +1,437 @@
+.cl-sr {
+  width: 1134px;
+  margin: 0 auto;
+  //height: 66px;
+}
+.sr-result{
+  width: 885px;
+  height: 50px;
+  background: url("../../assets/img/sr_search.png") no-repeat;
+  background-position: 142px center;
+  text-align: center;
+  line-height: 50px;
+  font-size: 14px;
+  color: #989898;
+  padding-left: 87px;
+}
+.sr-header {
+  display: block;
+  width: 100%;
+  height: 66px;
+  background: #ffba4e;
+  border-radius: 5px;
+}
+.sr-hd-body {
+  display: flex;
+  align-items: center;
+  width: 972px;
+  padding-left: 57px;
+  height: 100%;
+  margin: 0 auto;
+  .sr-hd-item {
+    height: 48px;
+    line-height: 48px;
+    color: #ffffff;
+    font-size: 18px;
+    margin-right: 75px;
+  }
+  .on {
+    color: #2a2e43;
+    border-bottom: 1px solid #000;
+  }
+}
+
+
+.sr-num {
+  display: block;
+  width: 100%;
+  height: 72px;
+}
+.sr-num-text {
+  width: 240px;
+  height: 72px;
+  text-align: center;
+  line-height: 72px;
+  float: right;
+  color: #989898;
+}
+.sr-con {
+  width: 100%;
+  zoom: 1;
+  position: relative;
+}
+.sr-con:after {
+  content: "";
+  clear: both;
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.mt-item:nth-child(even){
+  margin-left: 26px;
+}
+.mt-item{
+  float: left;
+  width: 530px;
+  height: 210px;
+  padding: 20px 11px;
+  margin-bottom: 23px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 1px 10px #cccccc;
+  .mt-item-left{
+    float: left;
+    width: 136px;
+    height: 208px;
+    background: url("../../assets/img/mt_book1.png");
+    background-position: center;
+    background-size: cover;
+    border-radius: 6px;
+  }
+  .mt-item-rt{
+    float: left;
+    width: 370px;
+    height: 210px;
+    margin-left: 20px;
+    .mt-item-tit{
+      height: 30px;
+      line-height: 30px;
+      font-size: 18px;
+    }
+    .mt-item-num{
+      display: flex;
+      align-items: center;
+      height: 70px;
+      line-height: 70px;
+      .mt-item-mjTag{
+        float: left;
+        width: 55px;
+        height: 20px;
+        line-height: 20px;
+        font-size: 14px;
+        text-align: center;
+        color: #e84c45;
+        border: 1px solid #e84c45;
+      }
+      span{
+        background: #5e4eaa;
+        display: inline-block;
+        width: 290px;
+        height: 20px;
+        line-height: 20px;
+        padding: 22px;
+        margin-left: 20px;
+        font-size: 16px;
+        color: #989898;
+        float: right;
+        background: url("../../assets/img/mt_icon_num.png") no-repeat;
+        background-position: left center;
+      }
+    }
+    .mt-item-des{
+      width: 100%;
+      height: 110px;
+      font-size: 14px;
+      line-height: 22px;
+    }
+  }
+}
+.mt-page{
+  width: 100%;
+  display: block;
+  float: right;
+  margin: 32px 0 225px auto;
+  background: #f4f4f4;
+}
+//课程详情
+.cr-main {
+  width: 1200px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding-bottom: 280px;
+}
+.cr-main:after {
+  content: "";
+  clear: both;
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.cr-top {
+  width: 1156px;
+  height: 422px;
+  padding: 24px 22px;
+  background: #2a2e43;
+  border-radius: 8px;
+  box-shadow: 3px 3px 10px #cccccc;
+}
+.top-img {
+  float: left;
+  position: relative;
+  width: 715px;
+  height: 425px;
+  border-radius: 8px;
+  background: url("../../assets/img/sr_video.png") no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.top-img-banner {
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  color: #ffffff;
+  text-align: center;
+  line-height: 60px;
+  font-size: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  bottom: 0;
+  border-radius: 0 0 8px 8px;
+  span {
+    display: inline-block;
+    width: 66px;
+    height: 24px;
+    border: 1px solid #ffffff;
+    border-radius: 3px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 24px;
+    background: url("../../assets/img/sr_icon_rt.png") no-repeat;
+    background-position-x: 85%;
+    background-position-y: center;
+    cursor: pointer;
+  }
+}
+.top-rt {
+  float: right;
+  width: 420px;
+  height: 425px;
+  color: #ffffff;
+  .cr-tit {
+    height: 72px;
+    font-size: 60px;
+    color: #ffffff;
+  }
+  .cr-tit-eng {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    font-size: 30px;
+    line-height: 40px;
+    span {
+      display: inline-block;
+      width: 63px;
+      height: 20px;
+      border: 1px solid #e84c45;
+      color: #e84c45;
+      font-size: 14px;
+      line-height: 20px;
+      text-align: center;
+      margin-left: 14px;
+    }
+  }
+  .cr-code {
+    height: 40px;
+    line-height: 40px;
+  }
+  .cr-courseLen {
+    height: 40px;
+    line-height: 40px;
+  }
+  .cr-btn-group {
+    height: 140px;
+    .cr-btn-item {
+      //float: right;
+      margin-top: 90px;
+      margin-left: 150px;
+      width: 270px;
+      height: 72px;
+      background: #5e4eaa url("../../assets/img/sr_add.png") no-repeat;
+      background-position: 10% center;
+      border-radius: 10px;
+      text-align: center;
+      line-height: 72px;
+      font-size: 25px;
+      cursor: pointer;
+    }
+    .cr-btn-on{
+      background: #5e4eaa url("../../assets/img/mt_rocket.png") no-repeat;
+      background-position: 10% center;
+    }
+  }
+  .cr-rt-num {
+    height: 70px;
+    line-height: 70px;
+    font-size: 20px;
+    background: url("../../assets/img/sr_num.png") no-repeat;
+    background-position: 66% center;
+    .cr-btn-dis {
+      width: 90px;
+      float: left;
+      margin-left: 150px;
+      font-size: 20px;
+      color: #989898;
+      text-align: center;
+      cursor: pointer;
+    }
+    .cr-num {
+      float: right;
+      width: 136px;
+      height: 70px;
+      font-size: 18px;
+      color: #ffffff;
+      text-align: center;
+    }
+  }
+}
+.cr-btm {
+  width: 100%;
+  height: 730px;
+  margin-top: 52px;
+}
+.cr-btm-nav {
+  float: left;
+  width: 162px;
+  height: 100%;
+  .cr-nav-btn {
+    width: 155px;
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    border-bottom: 1px solid #e5e5e5;
+    color: #989898;
+    background: url("../../assets/img/sr_rt_1.png") no-repeat center right;
+  }
+  .cl-on {
+    color: #e84c45;
+    font-size: 16px;
+    padding: 0 10px;
+    background: url("../../assets/img/sr_rt_2.png") no-repeat center right;
+  }
+}
+.cr-btm-main {
+  float: left;
+  width: 580px;
+  margin-left: 50px;
+}
+.cl-btm-ov {
+  width: 100%;
+  margin-bottom: 20px;
+  .cl-btm-tit {
+    height: 35px;
+    line-height: 35px;
+    margin-bottom: 10px;
+  }
+  .cl-ov-con {
+    line-height: 30px;
+    font-size: 14px;
+  }
+}
+.cl-btm-ol {
+  width: 100%;
+  .cl-btm-tit {
+    height: 35px;
+    line-height: 35px;
+    margin-bottom: 10px;
+  }
+  .cl-ol-con {
+    width: 100%;
+    .cl-ol-item {
+      height: 50px;
+      width: 100%;
+      line-height: 50px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+  }
+}
+.cr-btm-tea {
+  float: left;
+  width: 265px;
+  height: 100%;
+  margin-left: 68px;
+  .cr-tea-tit {
+    height: 42px;
+    width: 100%;
+    line-height: 42px;
+    font-size: 20px;
+    font-weight: normal;
+  }
+  .cr-tea-ul {
+    min-height: 400px;
+    .cr-tea-item {
+      height: 60px;
+      width: 241px;
+      background: #f6f5fa;
+      padding: 18px 12px;
+      box-shadow: 0px 2px 5px #ccc;
+      border-radius: 5px;
+      margin-bottom: 7px;
+      .cr-item-img {
+        float: left;
+        width: 60px;
+        height: 60px;
+        background: #f6f5fa url("../../assets/img/sr_tea.png") no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 50%;
+      }
+      .cr-item-con {
+        float: right;
+        width: 162px;
+        height: 60px;
+      }
+      .cr-item-tit {
+        height: 34px;
+        line-height: 34px;
+        font-size: 18px;
+      }
+      .cr-item-des {
+        font-size: 16px;
+        height: 26px;
+        line-height: 26px;
+        color: #989898;
+      }
+    }
+  }
+}
+.cr-tea-school {
+  height: 225px;
+  margin-top: 40px;
+  .cr-school-tit {
+    height: 42px;
+    width: 100%;
+    line-height: 42px;
+    font-size: 20px;
+    font-weight: normal;
+    margin-bottom: 30px;
+  }
+  .cr-school-logo {
+    height: 70px;
+    width: 72px;
+    margin: 0 auto;
+    background: url("../../assets/img/sr_schoolLogo.png") no-repeat;
+    background-position: center;
+  }
+  .cr-school-name {
+    width: 100%;
+    height: 52px;
+    text-align: center;
+    line-height: 52px;
+    font-size: 16px;
+  }
+  .cr-school-des {
+    height: 40px;
+    font-size: 12px;
+    text-align: center;
+    color: #989898;
+    line-height: 20px;
+  }
+}
+.commonCourseList-content-items-left{
+  width: 715px;
+  height: 425px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
