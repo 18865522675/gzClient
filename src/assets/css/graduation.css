@@ -1,0 +1,560 @@
+.my-info {
+  width: 1200px;
+  margin: 0 auto;
+}
+.my-info .info_bar {
+  width: 1200px;
+  height: 60px;
+  box-sizing: border-box;
+  line-height: 60px;
+  background: #6d8bfa;
+  margin-top: 9px;
+  padding-left: 40px;
+}
+.my-info .info_bar ul {
+  overflow: hidden;
+}
+.my-info .info_bar ul li {
+  float: left;
+  font-family: PingFangSC-Medium;
+  font-size: 24px;
+  color: #ffffff;
+  letter-spacing: 0;
+}
+.my-info .info_bar ul li:nth-child(2) {
+  font-size: 16px;
+  margin-left: 5px;
+}
+.my-info .info {
+  width: 100%;
+  margin-top: 40px;
+}
+.my-info .info .tabNav {
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  z-index: 20;
+}
+.my-info .info .tabNav li {
+  list-style: none;
+  float: left;
+}
+.my-info .info .tabNav .fl {
+  float: left;
+  width: 100px;
+  height: 40;
+  line-height: 40px;
+  box-sizing: border-box;
+  text-align: center;
+  margin-right: 5px;
+  border: 1px solid #e2e2e2;
+  background: #e4e4e4;
+  cursor: pointer;
+}
+.my-info .info .tabNav .fl:first-child {
+  margin-left: 100px;
+}
+.my-info .info .tabNav .active {
+  border: 1px solid #e2e2e2;
+  background: #ffff;
+  border-bottom: 0;
+}
+.my-info .info .tbor {
+  width: 100%;
+  min-height: 500px;
+  border-top: 1px solid #e2e2e2;
+  z-index: 3;
+}
+.my-info .info .tbor .tabContent {
+  padding-top: 25px;
+}
+.my-info .info .tbor .tabContent .step {
+  width: 980px;
+  height: 100px;
+  margin: 0 auto;
+  display: flex;
+}
+.my-info .info .tbor .tabContent .step .circle {
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+  border: 1px solid #b7b7b7;
+  border-radius: 50px;
+  background: #b7b7b7;
+}
+.my-info .info .tbor .tabContent .step .circle_bg1 {
+  background-image: url("../../assets/img/search.png");
+}
+.my-info .info .tbor .tabContent .step .circle_bg2 {
+  background-image: url("../../assets/img/question.png");
+}
+.my-info .info .tbor .tabContent .step .circle_bg3 {
+  background-image: url("../../assets/img/treatise.png");
+}
+.my-info .info .tbor .tabContent .step .circle_bg4 {
+  background-image: url("../../assets/img/plea.png");
+}
+.my-info .info .tbor .tabContent .step .circle_bg5 {
+  background-image: url("../../assets/img/degree.png");
+}
+.my-info .info .tbor .tabContent .step .bg_sky {
+  background: #a2c1ff;
+}
+.my-info .info .tbor .tabContent .step .bg_purple {
+  background: #caa3ff;
+}
+.my-info .info .tbor .tabContent .step .bg_blue {
+  background: #a2ddfa;
+}
+.my-info .info .tbor .tabContent .step .bg_green {
+  background: #b0ee96;
+}
+.my-info .info .tbor .tabContent .step .bg_red {
+  background: #ff8f98;
+}
+.my-info .info .tbor .tabContent .step .divider {
+  width: 114px;
+  margin: 0 3px;
+  height: 6px;
+  background: #b7b7b7;
+  border-radius: 3px;
+  box-sizing: border-box;
+  position: relative;
+  top: 47px;
+}
+.my-info .info .tbor .tabContent .stepName {
+  width: 980px;
+  height: 30px;
+  margin: 20px auto 20px;
+}
+.my-info .info .tbor .tabContent .stepName span {
+  width: 100px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  display: inline-block;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #b7b7b7;
+  letter-spacing: 0;
+}
+.my-info .info .tbor .tabContent .stepName span:not(.oneSpan) {
+  margin-left: 120px;
+}
+.my-info .info .tbor .tabContent .mt25 {
+  margin-top: 25px;
+}
+.my-info .info .tbor .tabContent .applyBtn {
+  width: 980px;
+  min-height: 30px;
+  margin: 60px auto 20px;
+}
+.my-info .info .tbor .tabContent .applyBtn p {
+  width: 280px;
+  height: 68px;
+  line-height: 68px;
+  text-align: center;
+  background: #6c8bfa;
+  border-radius: 4px;
+  color: #fff;
+  margin: 0 auto;
+  cursor: pointer;
+}
+.my-info .info .tbor .tabContent .applyBtn div {
+  text-align: center;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #b7b7b7;
+  letter-spacing: 0;
+}
+.my-info .process {
+  width: 980px;
+  min-height: 300px;
+  margin: 0 auto;
+  margin-bottom: 100px;
+}
+.my-info .process .single_pass,
+.my-info .process .single_notpass {
+  display: flex;
+}
+.my-info .process .single_pass .time,
+.my-info .process .single_notpass .time {
+  width: 175px;
+  height: 140px;
+  box-sizing: border-box;
+  position: relative;
+}
+.my-info .process .single_pass .time .dataStyle,
+.my-info .process .single_notpass .time .dataStyle {
+  float: left;
+  position: absolute;
+  left: 64px;
+  top: 44px;
+  font-family: PingFangSC-Medium;
+  font-size: 18px;
+  color: #999999;
+}
+.my-info .process .single_pass .time .dataStyle p:first-child,
+.my-info .process .single_notpass .time .dataStyle p:first-child {
+  font-family: PingFangSC-Medium;
+  font-size: 16px;
+  color: #999999;
+  letter-spacing: 0;
+  margin-bottom: 10px;
+}
+.my-info .process .single_pass .time .dataStyle p:last-child,
+.my-info .process .single_notpass .time .dataStyle p:last-child {
+  font-family: PingFangSC-Medium;
+  font-size: 18px;
+  color: #999999;
+  letter-spacing: 0;
+}
+.my-info .process .single_pass .time .circle,
+.my-info .process .single_notpass .time .circle,
+.my-info .process .single_pass .time .circle_2,
+.my-info .process .single_notpass .time .circle_2 {
+  float: right;
+  width: 80px;
+  height: 80px;
+  border: 1px solid #e2e2e2;
+  line-height: 80px;
+  text-align: center;
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #FFFFFF;
+  border-radius: 40px;
+  background: #6d8bfa;
+  position: absolute;
+  left: 141px;
+  top: 20px;
+}
+.my-info .process .single_pass .time .circle_2,
+.my-info .process .single_notpass .time .circle_2 {
+  background: #fff;
+  color: #333333;
+}
+.my-info .process .single_pass .statusDetail,
+.my-info .process .single_notpass .statusDetail,
+.my-info .process .single_pass .statusDetail_2,
+.my-info .process .single_notpass .statusDetail_2 {
+  width: 805px;
+  min-height: 140px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 95px;
+  border: 1px solid #e2e2e2;
+  box-sizing: border-box;
+  border-left: 10px solid #6d8bfa;
+}
+.my-info .process .single_pass .statusDetail .title,
+.my-info .process .single_notpass .statusDetail .title,
+.my-info .process .single_pass .statusDetail_2 .title,
+.my-info .process .single_notpass .statusDetail_2 .title {
+  font-family: PingFangSC-Medium;
+  font-size: 18px;
+  color: #333333;
+  letter-spacing: 0;
+  margin-bottom: 15px;
+}
+.my-info .process .single_pass .statusDetail .flow,
+.my-info .process .single_notpass .statusDetail .flow,
+.my-info .process .single_pass .statusDetail_2 .flow,
+.my-info .process .single_notpass .statusDetail_2 .flow {
+  display: flex;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #333333;
+  letter-spacing: 0;
+}
+.my-info .process .single_pass .statusDetail .flow span,
+.my-info .process .single_notpass .statusDetail .flow span,
+.my-info .process .single_pass .statusDetail_2 .flow span,
+.my-info .process .single_notpass .statusDetail_2 .flow span {
+  width: 86px;
+  height: 40px;
+}
+.my-info .process .single_pass .statusDetail .flow p,
+.my-info .process .single_notpass .statusDetail .flow p,
+.my-info .process .single_pass .statusDetail_2 .flow p,
+.my-info .process .single_notpass .statusDetail_2 .flow p {
+  width: 600px;
+  min-height: 40px;
+}
+.my-info .process .single_pass .statusDetail_2,
+.my-info .process .single_notpass .statusDetail_2 {
+  background: #6d8bfa;
+}
+.audit {
+  width: 980px;
+  min-height: 30px;
+  margin: 60px auto 50px;
+}
+.audit .againChoose {
+  width: 280px;
+  height: 68px;
+  line-height: 68px;
+  text-align: center;
+  background: #6c8bfa;
+  border-radius: 4px;
+  color: #fff;
+  margin: 60px auto 0;
+  cursor: pointer;
+}
+.audit .auditing {
+  width: 600px;
+  height: 312px;
+}
+.audit .auditPass {
+  width: 600px;
+  min-height: 312px;
+}
+.audit .unpass {
+  width: 600px;
+  min-height: 312px;
+}
+.audit .auditPass,
+.audit .auditing,
+.audit .unpass {
+  background: #e4eafe;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.audit .auditPass li:not(.sugCont),
+.audit .auditing li:not(.sugCont),
+.audit .unpass li:not(.sugCont) {
+  width: 100%;
+  height: 62px;
+  line-height: 62px;
+  font-size: 14px;
+  color: #333333;
+  box-sizing: border-box;
+}
+.audit .auditPass li:not(.sugCont) span,
+.audit .auditing li:not(.sugCont) span,
+.audit .unpass li:not(.sugCont) span {
+  margin-left: 20px;
+}
+.audit .auditPass li:not(.exceptLi),
+.audit .auditing li:not(.exceptLi),
+.audit .unpass li:not(.exceptLi) {
+  border-top: 1px solid #fff;
+}
+.audit .auditPass .sugCont,
+.audit .auditing .sugCont,
+.audit .unpass .sugCont {
+  height: 90px;
+  font-size: 14px;
+  color: #333333;
+  padding: 10px 0;
+}
+.audit .auditPass .sugCont div,
+.audit .auditing .sugCont div,
+.audit .unpass .sugCont div {
+  width: 524px;
+  height: 100%;
+  margin-left: 20px;
+  word-wrap: break-word;
+}
+.audit .congrat {
+  text-align: center;
+  font-family: PingFangSC-Medium;
+  font-size: 24px;
+  color: #333333;
+  letter-spacing: 0;
+}
+.audit .alMes {
+  text-align: center;
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #333333;
+  letter-spacing: 0;
+  margin-top: 13px;
+}
+.upload {
+  width: 980px;
+  min-height: 30px;
+  margin: 60px auto 50px;
+  text-align: center;
+}
+.upload .uplInfo {
+  width: 600px;
+  height: 181px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 79px;
+}
+.upload .uplInfo li:first-child {
+  height: 20px;
+  line-height: 20px;
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #6c8bfa;
+  letter-spacing: 0;
+  padding-left: 19px;
+}
+.upload .uplInfo li:first-child i {
+  display: inline-block;
+  width: 18px;
+  height: 20px;
+  background-image: url("../../assets/img/Paper_icon.png");
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  margin-right: 15px;
+}
+.upload .uplInfo li:nth-child(2) {
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  color: #cccccc;
+  letter-spacing: 0;
+  margin: 17px 0 18px;
+}
+.upload .uplInfo li:last-child {
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  color: #333333;
+  letter-spacing: 0;
+}
+.upload .upload-demo {
+  display: inline-block;
+}
+.upload .submitBtn {
+  width: 180px;
+  height: 68px;
+  line-height: 68px;
+  border-radius: 4px;
+  display: inline-block;
+  text-align: center;
+  background: #6c8bfa;
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #ffffff;
+  letter-spacing: 0;
+  vertical-align: top;
+  margin-left: 40px;
+  cursor: pointer;
+}
+.upload .up_report {
+  width: 180px;
+  height: 68px;
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 16px;
+  color: #ffffff;
+  letter-spacing: 0;
+  background: #6c8bfa;
+}
+.upMoudle_span {
+  font-family: PingFangSC-Regular;
+  font-size: 24px;
+  color: #333333;
+  letter-spacing: 0;
+}
+.el-dialog__header .el-dialog__title {
+  line-height: 24px;
+  font-size: 16px;
+  color: #333;
+}
+.btnGroup {
+  min-height: 48px;
+  margin-top: 55px;
+  text-align: center;
+}
+.btnGroup .btnStyle {
+  width: 180px;
+  height: 48px;
+  border: 0;
+  background: #6d8bfa;
+  border-radius: 4px;
+  font-family: PingFangSC-Regular;
+  font-size: 18px;
+  color: #ffffff;
+  letter-spacing: 0;
+}
+.btnGroup .btnStyle:last-child {
+  margin-left: 40px;
+}
+.dia_content {
+  text-align: center;
+}
+.dia_content p {
+  text-align: center;
+  font-family: PingFangSC-Regular;
+  font-size: 24px;
+  color: #333333;
+  letter-spacing: 0;
+}
+.dia_content div {
+  margin-top: 25px;
+}
+.el-dialog__footer .btnstyle {
+  width: 180px;
+  height: 48px;
+  border: 0;
+  background: #6d8bfa;
+  border-radius: 4px;
+  font-family: PingFangSC-Regular;
+  font-size: 18px;
+  color: #ffffff;
+  letter-spacing: 0;
+}
+.choosePrj {
+  height: 400px;
+  overflow-y: scroll;
+}
+.choosePrj .one_btn {
+  width: 470px;
+  height: 48px;
+  line-height: 48px;
+  box-sizing: border-box;
+  background: #d2dcfd;
+  border-radius: 4px 4px 0 0;
+  margin: 0 auto;
+  padding-left: 20px;
+}
+.choosePrj .one_btn span {
+  float: right;
+  width: 80px;
+  height: 48px;
+  text-align: center;
+  background: #6c8bfa;
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #ffffff;
+  letter-spacing: 0;
+}
+.choosePrj .prjList {
+  margin-top: 25px;
+}
+.choosePrj .one_display {
+  width: 470px;
+  height: 304px;
+  border: 1px solid #cccccc;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 20px;
+}
+.choosePrj .one_display p {
+  margin: 20px 0;
+}
+.choosePrj .one_display p .el-input {
+  width: 394px;
+}
+.choosePrj .one_display p .project {
+  display: inline-block;
+  width: 394px;
+  height: 40px;
+  line-height: 40px;
+}
+.choosePrj .one_display .btn {
+  margin: 0 auto;
+  width: 160px;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+  background: #6c8bfa;
+  border-radius: 4px;
+  font-family: PingFangSC-Regular;
+  font-size: 18px;
+  color: #ffffff;
+  cursor: pointer;
+}

@@ -1,93 +1,117 @@
 import axios from "axios";
 import { stringify } from "qs";
-import { Message, Loading } from "element-ui";
+import md5 from "md5";
+import { Message } from "element-ui";
 import router from "../router";
-import config from "../../config";
-import Cookies from "js-cookie";
 
-const HOST = config.HOST;
-const PREFIX_URL = config.HOST_API;
+// 正式
+// const HOST = "http://61.153.184.193:8085/";
 
-/**
- *
- * @param method 请求方式
- *          get, post, delete, put
- * @param url 请求链接
- * @param params 请求参数
- * @param conf 请求配置
- *                        : "formData"/"json",  默认 "formData"
- *          dataPart: ""/"url"  默认: ""
- */
-const ajax_main = (method, url = "", params, conf = {}) => {
-  return new Promise((resolve, reject) => {
-    const notBodyMethod = ["GET", "DELETE"];
-    let loading;
-    let configObj = {
-      method,
-      url: PREFIX_URL + url,
-      headers: {},
-      withCredentials: true //跨域携带凭证
-    };
+// 测试
+// const HOST = "http://61.153.184.193:8081/";
+// const HOST = "http://192.168.1.25:8080/";
 
-    //禁用缓存, 不然ie里会有问题
-    configObj.headers["If-Modified-Since"] = "0";
-    configObj.headers["Cache-Control"] = "no-cache";
+let HOST = "";
 
-    //序列化url参数
-    if (notBodyMethod.indexOf(method) > -1 || conf.dataPart === "url") {
-      configObj.url = configObj.url + "?" + stringify(params);
+if(location.host.indexOf('.kefang.net')>-1&&location.host.indexOf('-test.kefang.net')===-1){
+  // 正式
+  HOST = "http://115.239.255.216:8080/";
+}else {
+  // 测试
+  HOST = "http://115.239.255.216:8081/";
+}
+
+const PREFIX_URL = HOST + "autoditacte/";
+
+let ajax_main = (resolve, reject, obj) => {
+  let notBodyMethod = ["get"];
+  let configObj = {
+    method: obj.method,
+    url: PREFIX_URL + obj.url
+  };
+
+  if (!obj.params) obj.params = {};
+
+  if (obj.checkUser !== false) {
+    //判断是否登录
+    let Token = sessionStorage.getItem("Token");
+
+    if (Token) {
+      configObj.headers = {
+        Token: Token
+      };
     } else {
-      configObj.data = params;
+      router.push("/login");
     }
+  }
 
-    //序列化body参数
-    if (conf.dataType !== "json")
-      configObj.transformRequest = res => stringify(res);
+  //重复提交验证
+  if (obj.repeat) {
+    let dataMd5 = obj.url + md5(JSON.stringify(obj.params));
 
-    if (conf.lock) {
-      loading = Loading.service({
-        background: "rgba(255, 255, 255, 0.4)"
-      });
+    if (window.repeatMd5Arr === dataMd5) {
+      Message.error("不允许重复提交");
+      return;
+    } else {
+      window.repeatMd5Arr = dataMd5;
     }
+  }
 
-    axios(configObj)
-      .then(res => {
-        if (res.status === 200) {
-          if (res.data.code === 0) {
-            //成功
-            resolve(res.data);
-          } else if (res.data.code === 100000004) {
-            //未登录
-            Message.error(res.data.msg);
-            Cookies.remove("userInfo");
-            router.push("/login");
-          } else {
-            Message.error(res.data.msg);
-            reject(res.data);
-          }
+  //分类序列化参数
+  if (notBodyMethod.indexOf(configObj.method) > -1) {
+    configObj.url = configObj.url + "?" + stringify(obj.params);
+  } else {
+    if (obj.dataType !== "json") {
+      configObj["transformRequest"] = params => {
+        return stringify(params);
+      };
+    }
+    configObj["data"] = obj.params;
+  }
+
+  axios(configObj)
+    .then(res => {
+      if (res.status === 200) {
+        if (res.data.resultCode === 1000) {
+          resolve(res.data);
+        } else if (res.data.resultCode === 5001) {
+          Message.error(res.data.msg);
+//        sessionStorage.removeItem("Token");
+//        router.app.$router.push("/login");
         } else {
-          Message.error(res.statusText + " " + res.status);
-          reject(res);
+          Message.error(res.data.msg);
+          reject(res.data);
         }
-        if (loading) loading.close();
-      })
-      .catch(err => {
-        if (err.response) {
-          Message.error(err.response.statusText + " " + err.response.status);
-        } else {
-          Message.error(err.message);
-        }
-        reject(err);
-        if (loading) loading.close();
-      });
-  });
+      } else {
+        Message.error(res.statusText + " " + res.status);
+        reject(res);
+      }
+    })
+    .catch(err => {
+      Message.error(err.response.statusText + " " + err.response.status);
+      reject(err);
+    });
 };
 
-const $ = {
-  get: (url, params, conf) => ajax_main("GET", url, params, conf),
-  delete: (url, params, conf) => ajax_main("DELETE", url, params, conf),
-  post: (url, params, conf) => ajax_main("POST", url, params, conf),
-  put: (url, params, conf) => ajax_main("PUT", url, params, conf)
+let $ = {
+  get: (url, params, config) => {
+    let obj = {
+      url,
+      params,
+      method: "get",
+      ...config
+    };
+    return new Promise((resolve, reject) => ajax_main(resolve, reject, obj));
+  },
+  post: (url, params, config) => {
+    let obj = {
+      url,
+      params,
+      method: "post",
+      ...config
+    };
+    return new Promise((resolve, reject) => ajax_main(resolve, reject, obj));
+  }
 };
 
 export { $, PREFIX_URL, HOST };

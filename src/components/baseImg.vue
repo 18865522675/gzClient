@@ -2,8 +2,8 @@
  <div>
      <el-upload
       class="avatar-uploader"
-      :action="$config.HOST_API + url"
-      name="imageFile"
+      :action="$api.global.url + url"
+      :headers="headers"
       :show-file-list="false"
       :on-success="upSuccess"
       :on-error="upError"
@@ -13,10 +13,9 @@
         <i v-if="!imageUrl&&!profilePhoto" class="el-icon-plus avatar-uploader-icon"></i>
       </div>
       <div v-else> -->
-        <!--<img v-if="imageUrl" :src="$config.HOST_API+imageUrl" class="avatar">-->
-         <div v-if="imageUrl" :style="{backgroundImage: 'url('+$config.HOST_API+imageUrl+')'}" class="baseImg-img avatar"></div>
-        <!--<img v-if="!imageUrl&&imgUrl!=null" :src="$config.HOST_API+imgUrl" class="avatar">-->
-        <i v-if="!imageUrl&&!imgUrl" class="el-icon-plus avatar-uploader-icon"></i>
+        <img v-if="imageUrl" :src="$api.global.img+imageUrl" class="avatar">
+        <img v-if="!imageUrl&&photo!=null" :src="$api.global.img+photo+'?random='+Math.random()" class="avatar">
+        <i v-if="!imageUrl&&!photo" class="el-icon-plus avatar-uploader-icon"></i>
         <!-- <i v-if="!imageUrl||$api.global.img+null" class="el-icon-plus avatar-uploader-icon"></i> -->
       <!-- </div> -->
     </el-upload> 
@@ -28,14 +27,17 @@ export default {
   data() {
     return {
       message: null,
-      imageUrl: ""
+      imageUrl: "",
+      headers: {
+        Token: sessionStorage.getItem("Token")
+      }
     };
   },
   model: {
-    prop: "imgUrl",
+    prop: "photo",
     event: "modelPhoto"
   },
-  props: ["url", "success", "imgUrl"],
+  props: ["url", "success", "photo"],
   mounted() {},
   methods: {
     beforeAvatarUpload(file) {
@@ -60,16 +62,14 @@ export default {
       return (isJPG || isGIF || isPNG || isJPEG) && isLt2M;
     },
     upSuccess(res) {
-      if (res.code === 0) {
+      if (res.resultCode === 1000) {
         this.$message({
           message: "上传成功",
           type: "success"
         });
         setTimeout(() => {
-          this.imageUrl = res.data;
-          console.log(this.imageUrl);
+          this.imageUrl = res.data + "?random=" + Math.random();
           this.$emit("modelPhoto", res.data);
-          // this.success&&this.success()
         }, 600);
       } else {
         this.$message({
@@ -99,11 +99,6 @@ export default {
           duration: 0
         });
       }
-    },
-    resetUrl() {
-      console.log(123);
-      this.imageUrl = "";
-      this.$emit("modelPhoto", "");
     }
   }
 };
@@ -126,16 +121,11 @@ export default {
   width: 178px;
   height: 178px;
   line-height: 178px;
-  /*text-align: center;*/
+  text-align: center;
 }
 .avatar {
   width: 178px;
   height: 178px;
   display: block;
-}
-.baseImg-img {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 </style>

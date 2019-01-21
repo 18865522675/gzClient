@@ -1,7 +1,6 @@
 /*
    时间戳转换
  */
-import { stringify } from "qs";
 let timeFormat = timeStr => {
   let timeObj = new Date(timeStr);
   let year = timeObj.getFullYear(); //年
@@ -25,10 +24,18 @@ let timeFormat = timeStr => {
 
 let obj = {
   table: {
-    time(val1, val2, val3) {
-      if (val3) {
-        return timeFormat(val3);
-      }
+    time(row, column, cellValue) {
+      if (cellValue) return timeFormat(cellValue);
+    }
+  },
+  time_m(val) {
+    if (val) {
+      let m = parseInt(val / 60);
+      let s = parseInt(val % 60);
+      if (s < 10) s = "0" + s;
+      return m + ":" + s;
+    } else {
+      return "";
     }
   },
   time(val) {
@@ -67,17 +74,6 @@ let obj = {
         return res;
       }
     }
-  },
-  admissManage: {
-    stringify(obj) {
-      return stringify(obj);
-    }
-  },
-  urlEnJson(res) {
-    return encodeURIComponent(JSON.stringify(res));
-  },
-  urlDeJson(res) {
-    return JSON.parse(decodeURIComponent(res));
   }
 };
 

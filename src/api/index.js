@@ -1,17 +1,14 @@
 import { PREFIX_URL, HOST } from "./axios";
-
-import main from "./main";
-import courseLive from "./courseLive";
-import selfInfo from "./selfInfo";
-import message from "./message";
-import sever from "./sever";
-import search from "./search";
-import commonCourse from "./commonCourse";
-import learnRecord from "./learnRecord";
-import applyTest from "./applyTest";
-import examRead from "./examRead";
-import tutoring from "./tutoring";
-
+import resourceManagement from "./resourceManagement";
+import setInfo from "./setInfo";
+import applyGraduation from "./applyGraduation";
+import preschoolReview from "./preschoolReview";
+import systemMangerment from "./systemMangerment";
+import curriculumLearning from "./curriculumLearning";
+import examinationReservation from "./examinationReservation";
+import testQueries from "./testQueries";
+import news from "./news";
+import serviceFeedback from "./serviceFeedback";
 //模块目录
 const api = {
   global: {
@@ -19,17 +16,16 @@ const api = {
     host: HOST,
     img: HOST
   },
-  main,
-  courseLive,
-  selfInfo,
-  message,
-  sever,
-  search,
-  commonCourse,
-  learnRecord,
-  applyTest,
-  examRead,
-  tutoring
+  resourceManagement, //测试
+  setInfo, //个人信息
+  applyGraduation, //申请答辩
+  preschoolReview, //学前预习
+  systemMangerment,
+  curriculumLearning, //课程
+  examinationReservation, //考试预约
+  testQueries, //考场查询
+  news, //消息
+  serviceFeedback //服务反馈
 };
 
 export default api;

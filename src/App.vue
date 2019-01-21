@@ -1,17 +1,23 @@
 <template>
-    <div id="app" class="g-app bg_g">
-        <router-view/>
-    </div>
+  <div id="app" class="g-app">
+    <router-view/>
+  </div>
 </template>
 
 <script>
-import "element-ui/lib/theme-chalk/index.css";
-import "./assets/css/reset.less";
 import "./assets/css/style.less";
+import "./assets/css/reset.less";
 import "./assets/css/media.less";
+import "element-ui/lib/theme-chalk/index.css";
 
 export default {
   name: "app",
-  components: {}
+  components: {},
+  mounted() {
+    this.$router.beforeResolve((to, from, next) => {
+      document.title = to.meta.title;
+      next();
+    });
+  }
 };
 </script>

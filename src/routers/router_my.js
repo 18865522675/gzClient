@@ -1,19 +1,39 @@
 const router_module = {
-  path: "/moduleMain",
+  path: "/none",
   meta: {
-    title: "菜单1",
-    show: true, // 是否显示
-    listHide: true // 是否子菜单
+    title: "个人中心"
   },
-  component: resolve => require(["../views/moduleMain.vue"], resolve),
+  component: resolve => require(["../views/my/myModule.vue"], resolve),
   children: [
     {
-      path: "/home",
+      path: "/my/teaching",
       meta: {
-        title: "子菜单1",
-        show: true
+        title: "教学计划"
       },
-      component: resolve => require(["../views/home/home.vue"], resolve)
+      component: resolve => require(["../views/my/teachingPlan.vue"], resolve)
+    },
+    {
+      path: "/my/courseScore",
+      meta: {
+        title: "课程成绩"
+      },
+      component: resolve => require(["../views/my/course_score.vue"], resolve)
+    },
+    {
+      name: "tst",
+      path: "/my/graduation",
+      meta: {
+        title: "毕业设计"
+      },
+      component: resolve => require(["../views/my/graduation.vue"], resolve)
+    },
+    {
+      name: "ss",
+      path: "/my/kk",
+      meta: {
+        title: "毕业设计测试"
+      },
+      component: resolve => require(["../views/my/graduationTest.vue"], resolve)
     }
   ]
 };

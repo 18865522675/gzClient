@@ -1,0 +1,81 @@
+.pre-listMain {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 15px;
+    padding-top: 40px;
+  }
+  .pre-listItem {
+    width: 285px;
+    height: 290px;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 3px 20px rgba(0,0,0,.1);
+    margin-right: 10px;
+    margin-bottom: 15px;
+    transition: all .3s;
+    &:hover{
+      opacity: .8;
+      transition: all .3s;
+    }
+  }
+  .pre-listItem-img {
+    height: 180px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    .el-rate__icon {
+      font-size: 14px;
+      margin-right: 2px;
+    }
+  }
+  .pre-listItem-tab {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 5px 16px;
+    font-size: 14px;
+    color: #ffffff;
+    background: rgba(0,0,0,.5);
+  }
+  .el-rate {
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+  }
+  .pre-listItem-bd{
+    padding: 0 10px;
+  }
+  .pre-listItem-cap{
+    font-size: 16px;
+    color: #333333;
+    margin-top: 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .pre-listItem-tit{
+    font-size: 14px;
+    color: #333333;
+    margin-top: 15px;
+  }
+  .pre-listItem-ft{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    font-size: 18px;
+    text-align: center;
+    color: #583535;
+  }
+  .pre-listItem-time{
+    font-size: 16px;
+    color: #583535;
+  }
+  .pre-listItem-info{
+    font-size: 14px;
+    color: #333333;
+    &.on{
+      font-size: 16px;
+    }
+  }
