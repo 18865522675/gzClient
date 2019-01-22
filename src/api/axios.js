@@ -11,17 +11,10 @@ import router from "../router";
 // const HOST = "http://61.153.184.193:8081/";
 // const HOST = "http://192.168.1.25:8080/";
 
-let HOST = "";
+let HOST = "http://47.107.105.141:82/";
 
-if(location.host.indexOf('.kefang.net')>-1&&location.host.indexOf('-test.kefang.net')===-1){
-  // 正式
-  HOST = "http://115.239.255.216:8080/";
-}else {
-  // 测试
-  HOST = "http://115.239.255.216:8081/";
-}
 
-const PREFIX_URL = HOST + "autoditacte/";
+const PREFIX_URL = HOST + "client-api/";
 
 let ajax_main = (resolve, reject, obj) => {
   let notBodyMethod = ["get"];

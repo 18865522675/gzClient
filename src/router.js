@@ -34,14 +34,13 @@ export default new Router({
       children: [
         router_home, //首页
         router_selfInfo, //个人资料
-        router_curriculumLearning, //课程学习
-        router_preschoolReview, //学前复习
-        router_library, //图书馆
-        router_my, //个人中心
-        router_examinationReservation, //考试预约
-        // router_testQueries, //考试查询
+//      router_curriculumLearning, //课程学习
+//      router_preschoolReview, //学前复习
+//      router_library, //图书馆
+//      router_my, //个人中心
+//      router_examinationReservation, //考试预约
         router_news, //消息
-        router_serviceFeedback //服务反馈
+//      router_serviceFeedback //服务反馈
       ]
     }
   ]

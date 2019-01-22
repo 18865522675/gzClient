@@ -73,10 +73,9 @@
               <el-button size="small" type="primary" class="setinfo_upload">修改头像</el-button>
             </el-upload>
           </el-form-item>
-          <el-form-item label="虚拟名称 :" class="sel-bot" prop="name">
+          <!--<el-form-item label="虚拟名称 :" class="sel-bot" prop="name">
               <el-input placeholder="请输入虚拟名称" v-model="formData.virtualAccount"  :disabled="information.virtualAccount!=null">小丸子</el-input>
-              <!-- <el-input placeholder="请输入虚拟名称" v-model="formData.virtualAccount" :disabled="information.virtualAccount!=null">小丸子</el-input> -->
-          </el-form-item>
+          </el-form-item>-->
         </el-form>
             <el-button type="primary" class="save" @click="save">保存</el-button>
         </div>
@@ -175,7 +174,7 @@ export default {
   },
   components: { headModule },
   mounted() {
-    this.get_List();
+//  this.get_List();
   },
   methods: {
     get_List() {
@@ -317,7 +316,7 @@ export default {
     height: 60px;
     box-sizing: border-box;
     line-height: 60px;
-    background: #6d8bfa;
+    background: #435A95;
     margin-top: 9px;
     padding-left: 40px;
     p {
@@ -339,7 +338,7 @@ export default {
     position: absolute;
     left: 382px;
     top: 335px;
-    background: #6d8bfa;
+    background: #F5A623;
     border-color: #fff;
     padding: 15px 20px;
   }
@@ -423,7 +422,7 @@ export default {
 }
 .setinfo_upload {
   margin: 100px 0 0 151px;
-  background: #6d8bfa;
+  background: #435A95;
   border-color: #fff;
   border-radius: 4px;
   padding: 15px 20px;

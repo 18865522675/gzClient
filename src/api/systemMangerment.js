@@ -2,7 +2,7 @@ import { $ } from "./axios";
 import { stringify } from "qs";
 
 export default {
-  get_login: params => $.post("api/student/login?" + stringify(params)),
+  get_login: params => $.post("account/sign/signIn",params),
 
   get_loginOut: params => $.post("sys/admin/logout", params),
 

@@ -1,36 +1,124 @@
 <template>
-  <div class="main-page">
-    <div class="main">
-    	<!--<div class="homeMain-left">
-    		
-    	</div>
-    	<div class="homeMain-right">
-    		
-    	</div>-->
-      <!--<div class="block">
-        <el-carousel height="420px" class="home-ban">
-          <el-carousel-item v-for="(item,index) in photoBox" :key="index" :style="{backgroundImage: 'url('+item.url+')'}"></el-carousel-item>
-        </el-carousel>
-      </div>-->
-      <!--<div class="learn_moudle">
-        <div class="moud_chl">
-          <router-link to="/preschoolReview/preschoolReview" class="learn_bg" :style="{backgroundImage: 'url('+require('../../assets/img/figure.png')+')'}"></router-link>
-          <p class="modu_tit">入学复习</p>
-        </div>
-        <div class="moud_chl">
-          <router-link to="/curriculumLearning/list" class="learn_bg" :style="{backgroundImage: 'url('+require('../../assets/img/figure2.png')+')'}"></router-link>
-          <p class="modu_tit">课程学习</p>
-        </div>
-        <div class="moud_chl">
-          <router-link to="/my/graduation" class="learn_bg" :style="{backgroundImage: 'url('+require('../../assets/img/figure3.png')+')'}"></router-link>
-          <p class="modu_tit">毕业设计</p>
-        </div>
-        <div class="moud_chl">
-          <router-link to="/my/courseScore" class="learn_bg" :style="{backgroundImage: 'url('+require('../../assets/img/figure4.png')+')'}"></router-link>
-          <p class="modu_tit">课程成绩</p>
-        </div>
-      </div>-->
-    </div>
+  <div class="homeWrap">
+  	<div class="noticeWrap commonWrapSty">
+  		<div class="noticeHeader flex-r">
+  			<div style="font-weight: bold;">
+  				通知公告
+  			</div>
+  			<span style="font-size: 12px;">更多 <i class="el-icon-arrow-right"></i></span>
+  		</div>
+  		<div class="noticeBody">
+  				<div class="noticeBodyItem flex-r">
+  						<span>2011-10-11  10：31【函授站】</span>
+  						<span>贵州职业技术学院开学典礼</span>
+  				</div>
+  				<div class="noticeBodyItem flex-r">
+  						<span>2011-10-11  10：31【函授站】</span>
+  						<span>贵州职业技术学院开学典礼</span>
+  				</div>
+  				<div class="noticeBodyItem flex-r">
+  						<span>2011-10-11  10：31【函授站】</span>
+  						<span>贵州职业技术学院开学典礼</span>
+  				</div>			
+  		</div>
+  	</div>
+  	
+  	<div class="courseStudyWrap marT30 commonWrapSty">
+  			<div class="courseStudyWrap-title flex-r">
+  				<span style="font-size: 18px;">课程学习 <span style="font-size: 13px;">COURSE STUDY</span></span>
+  				学期切换
+  			</div>
+  			<div class="courseStudyWrap-body">
+  				<div class="nowLearnScore">
+  					已修学分：6/100
+  				</div>
+  				<div class="courseList flex-r">
+  					<div class="courseItem">
+  						    <el-card style="width: 100%;">
+						      <img src="../../assets/img/figure.png" class="image">
+						      <div style="padding: 14px;">
+						        <div class="courseName">
+						        	马克思主义基本原理概论
+						        </div>
+						        <div  class="courseTime">
+						        	6学分
+						        </div>
+						        
+						        <div class="bottom clearfix flex-r" style="align-items: center;justify-content: space-between;">
+						          <time class="hasLearnTime">已学习时间：20/20课时</time>
+						          <div class="startBtn">
+						          	开始学习
+						          </div>
+						        </div>
+						      </div>
+						    </el-card>
+  					</div>
+  						<div class="courseItem">
+  						    <el-card style="width: 100%;">
+						      <img src="../../assets/img/figure.png" class="image">
+						      <div style="padding: 14px;">
+						        <div class="courseName">
+						        	马克思主义基本原理概论
+						        </div>
+						        <div  class="courseTime">
+						        	6学分
+						        </div>
+						        
+						        <div class="bottom clearfix flex-r" style="align-items: center;justify-content: space-between;">
+						          <time class="hasLearnTime">已学习时间：20/20课时</time>
+						          <div class="startBtn">
+						          	开始学习
+						          </div>
+						        </div>
+						      </div>
+						    </el-card>
+  					</div>
+  						<div class="courseItem">
+  						    <el-card style="width: 100%;">
+						      <img src="../../assets/img/figure.png" class="image">
+						      <div style="padding: 14px;">
+						        <div class="courseName">
+						        	马克思主义基本原理概论
+						        </div>
+						        <div  class="courseTime">
+						        	6学分
+						        </div>
+						        
+						        <div class="bottom clearfix flex-r" style="align-items: center;justify-content: space-between;">
+						          <time class="hasLearnTime">已学习时间：20/20课时</time>
+						          <div class="startBtn">
+						          	开始学习
+						          </div>
+						        </div>
+						      </div>
+						    </el-card>
+  					</div>
+  					<div class="courseItem">
+  						    <el-card style="width: 100%;">
+						      <img src="../../assets/img/figure.png" class="image">
+						      <div style="padding: 14px;">
+						        <div class="courseName">
+						        	马克思主义基本原理概论
+						        </div>
+						        <div  class="courseTime">
+						        	6学分
+						        </div>
+						        
+						        <div class="bottom clearfix flex-r" style="align-items: center;justify-content: space-between;">
+						          <time class="hasLearnTime">已学习时间：20/20课时</time>
+						          <div class="startBtn">
+						          	开始学习
+						          </div>
+						        </div>
+						      </div>
+						    </el-card>
+  					</div>
+  				</div>
+  			</div>
+  			
+  			
+  	</div>
+  		
     <!--<div class="footer-small">version: 4.0.1</div>-->
   </div>
 </template>
@@ -38,20 +126,6 @@
 export default {
   data() {
     return {
-      photoBox: [
-        {
-          url: require("../../assets/img/banner1.jpg")
-        },
-        {
-          url: require("../../assets/img/banner2.jpg")
-        },
-        {
-          url: require("../../assets/img/banner3.jpg")
-        },
-        {
-          url: require("../../assets/img/banner4.jpg")
-        }
-      ]
     };
   },
   components: {},
@@ -60,98 +134,79 @@ export default {
 };
 </script>
 <style lang="less">
-.main {
-  width: 1200px;
-  display: flex;
-  margin: 0 auto;
-  .homeMain-left{
-  	width: 240px;
-  }
-  .homeMain-right{
-  	
-  }
-  .learn_moudle {
-    width: 100%;
-    height: 340px;
-    box-sizing: border-box;
-    margin: 40px 0 0;
-    // background: green;
-    .moud_chl {
-      float: left;
-      width: 290px;
-      height: 100%;
-      margin-right: 13px;
-      border-radius: 3px;
-      overflow: hidden;
-      &:nth-child(4n) {
-        margin-right: 0;
-      }
-      .learn_bg {
-        display: block;
-        width: 100%;
-        height: 280px;
-      }
-      .imgStyle {
-        display: block;
-      }
-      .modu_tit {
-        height: 60px;
-        line-height: 60px;
-        text-align: center;
-        background: #333;
-        font-family: PingFangSC-Medium;
-        font-size: 18px;
-        color: #ffffff;
-        letter-spacing: 11.25px;
-        position: relative;
-      }
-    }
-  }
-}
-.home-ban {
-  margin-top: 30px;
-  .el-carousel__container {
-    .el-carousel__arrow--left {
-      left: 60px;
-      background: url("../../assets/img/ico_17.png") no-repeat;
-      width: 42px;
-      height: 74px;
-      i {
-        display: none;
-      }
-    }
-    .el-carousel__arrow--right {
-      right: 60px;
-      background: url("../../assets/img/ico_18.png") no-repeat;
-      width: 42px;
-      height: 74px;
-      i {
-        display: none;
-      }
-    }
-  }
-  .el-carousel__indicators {
-    .el-carousel__indicator {
-      margin: 0 6px;
-      padding: 15px 4px;
-      .el-carousel__button {
-        width: 40px;
-        height: 10px;
-        border-radius: 20px;
-        background-color: #fff;
-        opacity: 1;
-      }
-      &.is-active {
-        .el-carousel__button {
-          background-color: #6c8bfa;
-        }
-      }
-    }
-  }
-}
-.el-carousel__item {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.homeWrap{
+	.noticeWrap{
+		box-sizing: border-box;
+		padding: 20px;
+		.noticeHeader{
+			height: 40px;
+			align-items: center;
+			justify-content:space-between;
+		}
+		.noticeBody{
+			.noticeBodyItem{
+				justify-content: space-between;
+				font-size: 13px;
+				height: 50px;
+				line-height: 50px;
+				cursor: pointer;
+				&:hover{
+					background-color: #F8F8F8;
+				}
+			}
+		}
+	}
+	.courseStudyWrap{
+		
+		.courseStudyWrap-title{
+			padding:0 20px;
+			color:white;
+			height: 60px;
+			line-height: 60px;
+			background: #435A95;
+			justify-content:space-between;
+		}
+	}
+	.courseStudyWrap-body{
+		.nowLearnScore{
+			font-family: PingFangSC-Medium;
+			font-size: 16px;
+			color: #333333;
+			line-height: 50px;
+			box-sizing: border-box;
+			padding: 0 20px;
+			font-size: 13px;
+			letter-spacing: 0;
+		}
+		.courseList{
+			flex-wrap: wrap;
+			justify-content: space-between;
+			.courseItem{
+				margin: 10px;
+					width: 30%;
+					img{
+						width: 100%;
+						height: 181px;
+					}
+					.courseName{
+						line-height: 30px;
+						font-size: 15px;
+					}
+					.courseTime{
+						line-height: 30px;
+						font-size: 14px;
+						
+					}
+					.hasLearnTime{
+						font-size: 12px;
+						color: #9B9B9B;
+						line-height: 40px;
+					}
+					.startBtn{
+						cursor: pointer;
+					}
+			}
+		}
+	}
 }
 </style>

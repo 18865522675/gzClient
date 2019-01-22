@@ -7,12 +7,22 @@
         <el-breadcrumb-item :to="{ path: item.path }" v-for="(item, index) in crumbs" :key="index" v-if="item.path!=='/none'">{{item.title}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div class="mainInfo">
+    <div class="mainInfo flex-r" >
     	<div class="mainInfo-left">
-    		
+    		<div class="userPic flex-r" >
+    			<div class='pic'>
+    				
+    			</div>
+    			<span>Eva Barnett</span>	
+    		</div>
+    		<div class="routerList">
+    			<div v-for="(item,index) in routes" @click="$router.push(item.path)" :class="{'routeActive':$route.path==item.path}" :key="index" class="routerItem">
+    				{{item.meta.title}}
+    			</div>
+    		</div>
     	</div>
     	<div class="mainInfo-right">
-    			
+    			<router-view ></router-view>
     	</div>
     </div>
     <!--<router-view class="m-main"/>-->
@@ -40,27 +50,66 @@ import { mapState } from "vuex";
 export default {
   name: "g-main",
   data() {
-    return {};
+    return {
+    	routes:[]
+    };
   },
   computed: mapState(["crumbs", "crumbsStatus"]),
   components: {
     headModule
   },
   mounted() {
-    console.log(this.crumbs);
+  	this.routes=this.$router.options.routes[1].children
+//  console.log(this.$router.options.routes[1].children);
   }
 };
 </script>
 <style type="text/css" lang="less">
 	.mainInfo{
 		padding-top: 20px;
+		width: 1200px;
+		margin: 0 auto;
 		.mainInfo-left{
 			width: 240px;
+			height: 600px;
+			background: #FFFFFF;
+			box-shadow: 4px 0 4px 0 rgba(0,0,0,0.15);
+			.userPic{
+				width: 100%;
+				height: 90px;
+				align-items: center;
+				justify-content:space-around;
+				.pic{
+					width: 70px;
+					height: 70px;
+					background: green;
+					border-radius: 50%;
+				}
+			}
+			.routerList{
+				.routerItem{
+					text-align: center;
+					line-height: 60px;
+					font-size: 14px;
+					/*font-weight:bold;*/ 
+					&:hover{
+						background-color: #F8F8F8;
+					}
+				}
+			}
 		}
 		.mainInfo-right{
 			flex:1;
 			margin-left: 20px;
+			height: 600px;
+			background: white;
+			/*background: #FFFFFF;*/
+	/*	  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.17);*/
 		}
 		
+		.routeActive{
+			box-sizing: border-box;
+			border-left: 2px solid #00B0FF;
+		}
 	}
 </style>
