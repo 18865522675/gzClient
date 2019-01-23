@@ -34,7 +34,7 @@ export default new Router({
       children: [
         router_home, //首页
         router_selfInfo, //个人资料
-//      router_curriculumLearning, //课程学习
+        router_curriculumLearning, //课程学习
 //      router_preschoolReview, //学前复习
 //      router_library, //图书馆
 //      router_my, //个人中心

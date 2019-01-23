@@ -8,35 +8,21 @@
   			<span style="font-size: 12px;">更多 <i class="el-icon-arrow-right"></i></span>
   		</div>
   		<div class="noticeBody">
-  				<div class="noticeBodyItem flex-r">
-  						<span>2011-10-11  10：31【函授站】</span>
-  						<span>贵州职业技术学院开学典礼</span>
-  				</div>
-  				<div class="noticeBodyItem flex-r">
-  						<span>2011-10-11  10：31【函授站】</span>
-  						<span>贵州职业技术学院开学典礼</span>
-  				</div>
-  				<div class="noticeBodyItem flex-r">
-  						<span>2011-10-11  10：31【函授站】</span>
-  						<span>贵州职业技术学院开学典礼</span>
-  				</div>
-  					<div class="noticeBodyItem flex-r">
-  						<span>2011-10-11  10：31【函授站】</span>
-  						<span>贵州职业技术学院开学典礼</span>
-  				</div>
-  					<div class="noticeBodyItem flex-r">
-  						<span>2011-10-11  10：31【函授站】</span>
-  						<span>贵州职业技术学院开学典礼</span>
-  				</div>
-  					<div class="noticeBodyItem flex-r">
-  						<span>2011-10-11  10：31【函授站】</span>
-  						<span>贵州职业技术学院开学典礼</span>
-  				</div>
-  					<div class="noticeBodyItem flex-r">
-  						<span>2011-10-11  10：31【函授站】</span>
-  						<span>贵州职业技术学院开学典礼</span>
+  				<div class="noticeBodyItem flex-r" v-for="(item,index) in noticeList" :key="index">
+  						<span>{{$fun.time(item.publishTime)}}【{{item.stationName}}】</span>
+  						<span>{{item.title}}</span>
   				</div>
   		</div>
+  		<el-pagination
+			        @size-change="handleSizeChange"
+			        @current-change="handleCurrentChange"
+			        :current-page="pageNum"
+			        :page-size="pageSize"
+			        :page-sizes="[10, 20, 30, 40, 50, 100]"
+			        layout="total, sizes, prev, pager, next, jumper"
+			        :total="total"
+			        class="kf-pagination">
+			      </el-pagination>
   	</div>
   	
   		
@@ -47,11 +33,36 @@
 export default {
   data() {
     return {
+    	noticeList:[],
+    	pageNum:1,
+    	pageSize:10,
+    	total:0
     };
   },
   components: {},
-  mounted() {},
-  methods: {}
+  mounted() {
+  	this.get_noticeList()
+  },
+  methods: {
+  	get_noticeList(){
+  		this.$api.home.get_noticeList({
+  			pageNum:this.pageNum,
+  			pageSize:this.pageSize,
+  			name:""
+  		}).then((res)=>{
+  			this.noticeList=res.data.pageList;
+  			this.total=+res.data.total
+  		})
+  	},
+  	   handleSizeChange(val) {
+      this.pageSize = val;
+      this.get_noticeList();
+    },
+    handleCurrentChange(val) {
+      this.pageNum = val;
+      this.get_noticeList();
+    }
+  }
 };
 </script>
 <style lang="less">

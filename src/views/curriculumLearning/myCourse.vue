@@ -18,10 +18,11 @@
       <div class="kf-curMy-play-box" v-show="video.type === 0">
         <div class="kf-curMy-play-cap">{{sign.courseName}}</div>
         <div class="kf-curMy-play-tit">{{video.title}}</div>
-        <!-- <div class="kf-curMy-play-btn" @click="startLearning">开始学习</div> -->
       </div>
     </div>
-    <!--无内容-->
+
+
+
     <div class="kf-curMy-play" v-else>
       <div class="kf-curMy-play-make" :style="{backgroundImage: 'url('+require('../../assets/img/ico_15.jpg')+')'}"></div>
       <div class="kf-curMy-play-box">
@@ -29,11 +30,11 @@
       </div>
     </div>
     <div class="kf-curMy-tab">
-      <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==0}" @click="tab_change(0)" v-if="waresList.length">课件</div>
-      <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==1}" @click="tab_change(1)" v-if="bookList.length">书籍</div>
+      <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==0}" @click="tab_change(0)" >课件</div>
+      <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==1}" @click="tab_change(1)">书籍</div>
       <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==2}" @click="tab_change(2)">作业</div>
       <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==3}" @click="tab_change(3)">留言</div>
-      <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==4}" @click="tab_change(4)" v-if="waresList.length">评价</div>
+      <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==4}" @click="tab_change(4)">评价</div>
     </div>
     <!--课件-->
     <div class="kf-curMy-bd" v-show="sign.tabInd==0">
@@ -117,12 +118,10 @@ export default {
     evaluate
   },
   mounted() {
-    this.sign = this.$route.params;
-    this.watchForm.id = this.sign.wareCourseId;
-    this.watchForm.planId = this.sign.planId;
-
-    console.log(this.sign);
-    this.get_courseware_list();
+//  this.sign = this.$route.params;
+//  this.watchForm.id = this.sign.wareCourseId;
+//  this.watchForm.planId = this.sign.planId;
+//  this.get_courseware_list();
   },
   methods: {
     tab_change(ind) {

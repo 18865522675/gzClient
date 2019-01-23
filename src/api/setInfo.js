@@ -6,7 +6,7 @@ export default {
 
   get_state: params => $.post("api/student/school", params),
 
-  edit_photo: params => $.post("api/student/edit", params),
+  edit_photo: params => $.put("/account/sign/updateSelf", params),
 
   get_courseList: params => $.post("api/student/coursesresult/query", params),
 
@@ -16,4 +16,6 @@ export default {
     get_scoreList: params => $.post("api/student/coursesresult/query2", params),
 
   get_terms: params => $.post("api/student/terms", params)
+  
+  
 };

@@ -1,21 +1,7 @@
 <template>
   <div class="homeWrap">
-  	<div class="noticeWrap commonWrapSty">
-  		<div class="noticeHeader flex-r">
-  			<div style="font-weight: bold;">
-  				通知公告
-  			</div>
-  			<span style="font-size: 12px;">更多 <i class="el-icon-arrow-right"></i></span>
-  		</div>
-  		<div class="noticeBody">
-  				<div class="noticeBodyItem flex-r" v-for="(item,index) in noticeList" :key="index">
-  						<span>{{$fun.time(item.publishTime)}}【{{item.stationName}}】</span>
-  						<span>{{item.title}}</span>
-  				</div>		
-  		</div>
-  	</div>
   	
-  	<div class="courseStudyWrap marT30 commonWrapSty">
+  	<div class="courseStudyWrap commonWrapSty">
   			<div class="courseStudyWrap-title flex-r">
   				<span style="font-size: 18px;">课程学习 <span style="font-size: 13px;">COURSE STUDY</span></span>
   				学期切换
@@ -24,16 +10,17 @@
   				<div class="nowLearnScore">
   					已修学分：6/100
   				</div>
-  				<div class="courseList flex-r">
-  					<div class="courseItem" v-for="(item,index) in courseList" :key="index">
+  				<div>
+  					<div class="courseList flex-r">
+  						<div class="courseItem" v-for="(item,index) in courseList" :key="index" @click="$router.push(`/curriculumLearning/myCourse/${item.id}`)">
   						    <el-card style="width: 100%;">
 						      <img src="../../assets/img/figure.png" class="image">
 						      <div style="padding: 14px;">
 						        <div class="courseName">
-						        	{{item}}
+						        	{{item.siteCourseName}}
 						        </div>
 						        <div  class="courseTime">
-						        	6学分
+						        	{{item.courseCredit}}学分
 						        </div>
 						        
 						        <div class="bottom clearfix flex-r" style="align-items: center;justify-content: space-between;">
@@ -45,7 +32,22 @@
 						      </div>
 						    </el-card>
   					</div>
+  					
+  					</div>
+  					<div>
+  						<el-pagination
+			        @size-change="handleSizeChange"
+			        @current-change="handleCurrentChange"
+			        :current-page="pageNum"
+			        :page-size="pageSize"
+			        :page-sizes="[10, 20, 30, 40, 50, 100]"
+			        layout="total, sizes, prev, pager, next, jumper"
+			        :total="total"
+			        class="kf-pagination">
+			      </el-pagination>
+  					</div>
   				</div>
+  				
   			</div>
   			
   			
@@ -59,24 +61,29 @@ export default {
   data() {
     return {
     	courseList:[],
-    	noticeList:[]
+    	pageNum:1,
+    	pageSize:10,
+    	total:10
     };
   },
   components: {},
   mounted() {
-  	this.get_homeNotice()
+  	this.get_course()
   },
   methods: {
-//	get_homeCourse(){
-//		this.$api.home.get_homeCourse().then((res)=>{
-//			this.courseList=res.data.pageList
-//		})
-//	},
-  	get_homeNotice(){
-  		this.$api.home.get_homeNotice().then((res)=>{
-  			this.noticeList=res.data.noticeVoList
+  	get_course(){
+  		this.$api.curriculumLearning.get_course().then((res)=>{
+  			this.courseList=res.data.pageList
   		})
-  	}
+  	},
+  	  handleSizeChange(val) {
+      this.pageSize = val;
+      this.get_course();
+    },
+    handleCurrentChange(val) {
+      this.pageNum = val;
+      this.get_course();
+    }
   }
 };
 </script>
@@ -127,7 +134,7 @@ export default {
 		}
 		.courseList{
 			flex-wrap: wrap;
-			justify-content: space-between;
+			justify-content: flex-start;	
 			.courseItem{
 				margin: 10px;
 					width: 30%;

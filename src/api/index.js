@@ -8,6 +8,7 @@ import curriculumLearning from "./curriculumLearning";
 import examinationReservation from "./examinationReservation";
 import testQueries from "./testQueries";
 import news from "./news";
+import home from "./home";
 import serviceFeedback from "./serviceFeedback";
 //模块目录
 const api = {
@@ -25,7 +26,8 @@ const api = {
   examinationReservation, //考试预约
   testQueries, //考场查询
   news, //消息
-  serviceFeedback //服务反馈
+  serviceFeedback, //服务反馈
+  home
 };
 
 export default api;

@@ -308,11 +308,11 @@ export default {
 
 <style scoped lang="less">
 .my-info {
-  width: 1200px;
+  /*width: 1200px;*/
   margin: 0 auto;
   // padding-top: 20px;
   .info_bar {
-    width: 1200px;
+    /*width: 1200px;*/
     height: 60px;
     box-sizing: border-box;
     line-height: 60px;

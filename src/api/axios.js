@@ -20,6 +20,7 @@ let ajax_main = (resolve, reject, obj) => {
   let notBodyMethod = ["get"];
   let configObj = {
     method: obj.method,
+    withCredentials: true,
     url: PREFIX_URL + obj.url
   };
 
@@ -65,9 +66,9 @@ let ajax_main = (resolve, reject, obj) => {
   axios(configObj)
     .then(res => {
       if (res.status === 200) {
-        if (res.data.resultCode === 1000) {
+        if (res.data.code === 0) {
           resolve(res.data);
-        } else if (res.data.resultCode === 5001) {
+        } else if (res.data.code === 5001) {
           Message.error(res.data.msg);
 //        sessionStorage.removeItem("Token");
 //        router.app.$router.push("/login");
