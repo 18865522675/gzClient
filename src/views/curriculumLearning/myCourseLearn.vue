@@ -12,7 +12,7 @@
   				</div>
   				<div>
   					<div class="courseList flex-r">
-  						<div class="courseItem" v-for="(item,index) in courseList" :key="index" @click="$router.push(`/curriculumLearning/myCourse/${item.id}`)">
+  						<div class="courseItem" v-for="(item,index) in courseList" :key="index" @click="$router.push(`/curriculumLearning/myCourse/${item.courseId}`)">
   						    <el-card style="width: 100%;">
 						      <img src="../../assets/img/figure.png" class="image">
 						      <div style="padding: 14px;">

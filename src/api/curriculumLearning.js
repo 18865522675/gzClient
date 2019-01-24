@@ -10,8 +10,12 @@ export default {
 ////我的学期
 //get_item: params => $.post("api/student/terms", params),
 //
-////课件列表
-//get_courseware_list: params => $.post("api/student/wares/query", params),
+//课件列表
+get_courseware_list: params => $.get("/course/listWare/"+params, {}),
+//问答列表
+get_courseask_list: params => $.get("/course/listAQ/"+params, {}),
+//笔记列表
+get_coursenote_list: params => $.get("/course/listNote/"+params, {}),
 ////保存播放时间
 //savePlayTime: params => $.post("api/student/watch/save", params),
 //

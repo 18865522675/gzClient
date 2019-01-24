@@ -57,15 +57,16 @@
             <el-input type="textarea" v-model.trim="formData.photo" style="display: none;"></el-input>
             <!-- <img width="30%" height="20%" :src="require('../../assets/img/selfPic.png')" alt="" class="kf-form-upImg" v-if="!formData.photo"> -->
             <div :style="{backgroundImage: 'url('+require('../../assets/img/Picture.png')+')'}" v-if="!formData.photo" class="kf-form-upImg"></div>
-            <div class="kf-form-upImg" :style="{backgroundImage: 'url('+$api.global.img+formData.photo+'?'+random+')'}" v-else></div>
+            <div class="kf-form-upImg" :style="{backgroundImage: 'url('+formData.photo+'?'+random+')'}" v-else></div>
             <!-- <router-link to="/preschoolReview/preschoolReview" class="learn_bg lbg_3" :style="{backgroundImage: 'url('+require('../../assets/img/photo3.png')+')'}"></router-link> -->
             <!-- <img width="30%" height="20%" :src="$api.global.img+formData.photo+'?'+random" alt="" class="kf-form-upImg" v-else> -->
             <!-- <img width="30%" height="20%" :src="$api.global.img+formData.photo" alt="" class="kf-form-upImg"> -->
             <el-upload
-              :action="$api.global.url + 'api/student/image/upload'"
+              action="http://47.107.105.141:82/client-api/common/page/upload"
               :headers="headers"
               :on-success="upSuccess"
               :on-error="upError"
+              name='imageFile'
               :on-progress="upProgress"
               :show-file-list="false"
               :before-upload="beforeAvatarUpload"
@@ -242,7 +243,7 @@ export default {
       });
     },
     upSuccess(res) {
-      if (res.resultCode === 1000) {
+      if (res.code === 0) {
         this.$message({
           message: "上传成功",
           type: "success"

@@ -24,6 +24,16 @@ children: [
       },
       component: resolve =>
         require(["../views/curriculumLearning/myCourse.vue"], resolve)
+    },
+    {
+      path:
+        "/curriculumLearning/seeVideo",
+      name: "myCourse",
+      meta: {
+        title: "视频学习"
+      },
+      component: resolve =>
+        require(["../views/curriculumLearning/seeVideo.vue"], resolve)
     }
 ]
 };

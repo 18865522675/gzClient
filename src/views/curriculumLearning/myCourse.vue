@@ -7,7 +7,7 @@
       </div>
     </div>
     <!--有内容-->
-    <div class="kf-curMy-play" v-if="waresList.length">
+    <!--<div class="kf-curMy-play" v-if="waresList.length">
       <video
         id="myVideo"
         class="kf-curMy-play-video"
@@ -19,16 +19,16 @@
         <div class="kf-curMy-play-cap">{{sign.courseName}}</div>
         <div class="kf-curMy-play-tit">{{video.title}}</div>
       </div>
-    </div>
+    </div>-->
 
 
 
-    <div class="kf-curMy-play" v-else>
+    <!--<div class="kf-curMy-play" v-else>
       <div class="kf-curMy-play-make" :style="{backgroundImage: 'url('+require('../../assets/img/ico_15.jpg')+')'}"></div>
       <div class="kf-curMy-play-box">
         <div class="kf-curMy-play-tit">暂无{{waresList.length?"":"课件"}}{{bookList.length?"":"、书籍"}} </div>
       </div>
-    </div>
+    </div>-->
     <div class="kf-curMy-tab">
       <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==0}" @click="tab_change(0)" >课件</div>
       <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==1}" @click="tab_change(1)">书籍</div>
@@ -121,7 +121,12 @@ export default {
 //  this.sign = this.$route.params;
 //  this.watchForm.id = this.sign.wareCourseId;
 //  this.watchForm.planId = this.sign.planId;
-//  this.get_courseware_list();
+    this.get_courseware_list();
+  },
+  computed:{
+  	"courseIds":function(){
+  		return this.$route.params.courseId
+  	}
   },
   methods: {
     tab_change(ind) {
@@ -130,17 +135,12 @@ export default {
     //获取课件列表
     get_courseware_list() {
       this.$api.curriculumLearning
-        .get_courseware_list({
-          currentPage: 1,
-          limitNum: 10000,
-          wareCourseId: this.sign.wareCourseId,
-          planId: this.sign.planId
-        })
+        .get_courseware_list(this.courseIds)
         .then(res => {
           let lookItem = "";
 
-          res.data.results
-            ? (this.waresList = res.data.results)
+          res.data
+            ? (this.waresList = res.data)
             : (this.waresList = []);
           this.waresList.map(item => {
             item.on = item.upLookTime ? true : false;
@@ -159,39 +159,42 @@ export default {
         });
     },
     startPlay(item) {
-      let myVideo = document.getElementById("myVideo");
-
-      //切换视频
-      if (this.video.src) {
-        this.savePlayTime(myVideo.currentTime);
-      }
-
-      item.on = true;
-      this.video.img = item.logo;
-      this.video.src = item.url;
-      this.watchForm.wareId = item.wareId;
-      this.watchForm.wareTimes = item.times;
-      this.video.type = 1;
-
-      //从指定时间开始播放
-      if (item.upLookTime) {
-        myVideo.currentTime = item.upLookTime;
-        setTimeout(() => {
-          myVideo.currentTime = item.upLookTime;
-        }, 100);
-      }
-      //缓存成功
-      myVideo.oncanplay = () => {
-        myVideo.play();
-      };
-      //暂停
-      myVideo.onpause = () => {
-        this.savePlayTime(myVideo.currentTime);
-      };
-      //播放结束
-      myVideo.onended = () => {
-        this.savePlayTime(myVideo.currentTime);
-      };
+    	sessionStorage.setItem("videoUrl",item.url)
+    	this.$router.push('/curriculumLearning/seeVideo');
+    	
+//    let myVideo = document.getElementById("myVideo");
+//
+//    //切换视频
+//    if (this.video.src) {
+//      this.savePlayTime(myVideo.currentTime);
+//    }
+//
+//    item.on = true;
+//    this.video.img = item.logo;
+//    this.video.src = item.url;
+//    this.watchForm.wareId = item.wareId;
+//    this.watchForm.wareTimes = item.times;
+//    this.video.type = 1;
+//
+//    //从指定时间开始播放
+//    if (item.upLookTime) {
+//      myVideo.currentTime = item.upLookTime;
+//      setTimeout(() => {
+//        myVideo.currentTime = item.upLookTime;
+//      }, 100);
+//    }
+//    //缓存成功
+//    myVideo.oncanplay = () => {
+//      myVideo.play();
+//    };
+//    //暂停
+//    myVideo.onpause = () => {
+//      this.savePlayTime(myVideo.currentTime);
+//    };
+//    //播放结束
+//    myVideo.onended = () => {
+//      this.savePlayTime(myVideo.currentTime);
+//    };
     },
     //开始学习
     startLearning() {
