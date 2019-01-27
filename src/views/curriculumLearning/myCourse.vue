@@ -126,6 +126,9 @@ export default {
   computed:{
   	"courseIds":function(){
   		return this.$route.params.courseId
+  	},
+  	"planId":function(){
+  		return this.$route.params.planId
   	}
   },
   methods: {
@@ -159,8 +162,12 @@ export default {
         });
     },
     startPlay(item) {
-    	sessionStorage.setItem("videoUrl",item.url)
-    	this.$router.push('/curriculumLearning/seeVideo');
+    	sessionStorage.setItem("videoUrl",item.url);
+    	this.$api.curriculumLearning.add_ware_point(this.planId).then(()=>{
+//  		this.$message.success("")
+  	this.$router.push('/curriculumLearning/seeVideo');
+    	})
+ 
     	
 //    let myVideo = document.getElementById("myVideo");
 //

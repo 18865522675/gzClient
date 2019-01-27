@@ -57,7 +57,7 @@
             <el-input type="textarea" v-model.trim="formData.photo" style="display: none;"></el-input>
             <!-- <img width="30%" height="20%" :src="require('../../assets/img/selfPic.png')" alt="" class="kf-form-upImg" v-if="!formData.photo"> -->
             <div :style="{backgroundImage: 'url('+require('../../assets/img/Picture.png')+')'}" v-if="!formData.photo" class="kf-form-upImg"></div>
-            <div class="kf-form-upImg" :style="{backgroundImage: 'url('+formData.photo+'?'+random+')'}" v-else></div>
+            <div class="kf-form-upImg" :style="{backgroundImage: 'url('+formData.photo+')'}" v-else></div>
             <!-- <router-link to="/preschoolReview/preschoolReview" class="learn_bg lbg_3" :style="{backgroundImage: 'url('+require('../../assets/img/photo3.png')+')'}"></router-link> -->
             <!-- <img width="30%" height="20%" :src="$api.global.img+formData.photo+'?'+random" alt="" class="kf-form-upImg" v-else> -->
             <!-- <img width="30%" height="20%" :src="$api.global.img+formData.photo" alt="" class="kf-form-upImg"> -->
@@ -78,7 +78,7 @@
               <el-input placeholder="请输入虚拟名称" v-model="formData.virtualAccount"  :disabled="information.virtualAccount!=null">小丸子</el-input>
           </el-form-item>-->
         </el-form>
-            <el-button type="primary" class="save" @click="save">保存</el-button>
+            <!--<el-button type="primary" class="save" @click="save">保存</el-button>-->
         </div>
       </div>
     </div>
@@ -175,7 +175,7 @@ export default {
   },
   components: { headModule },
   mounted() {
-//  this.get_List();
+    this.get_List();
   },
   methods: {
     get_List() {
@@ -197,7 +197,7 @@ export default {
     },
     stateForm() {
       this.centerDialogVisible = true;
-      this.$api.setInfo.get_state().then(res => {
+      this.$api.setInfo.get_listTrans().then(res => {
         console.log(res);
         this.schoolState = res.data;
         this.schoolState

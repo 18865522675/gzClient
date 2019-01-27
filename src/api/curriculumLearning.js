@@ -12,6 +12,11 @@ export default {
 //
 //课件列表
 get_courseware_list: params => $.get("/course/listWare/"+params, {}),
+//打开课件家一次分数
+add_ware_point: params => $.post("/course/startStudy/"+params, {}),
+
+//记录可见时间
+save_wareTime: (id,params) => $.post("/course/studyWare/"+id,params),
 //问答列表
 get_courseask_list: params => $.get("/course/listAQ/"+params, {}),
 //笔记列表

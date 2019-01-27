@@ -12,7 +12,7 @@
   				</div>
   				<div>
   					<div class="courseList flex-r">
-  						<div class="courseItem" v-for="(item,index) in courseList" :key="index" @click="$router.push(`/curriculumLearning/myCourse/${item.courseId}`)">
+  						<div class="courseItem" v-for="(item,index) in courseList" :key="index" @click="$router.push(`/curriculumLearning/myCourse/${item.courseId}/${item.planId}`)">
   						    <el-card style="width: 100%;">
 						      <img src="../../assets/img/figure.png" class="image">
 						      <div style="padding: 14px;">
@@ -24,7 +24,7 @@
 						        </div>
 						        
 						        <div class="bottom clearfix flex-r" style="align-items: center;justify-content: space-between;">
-						          <time class="hasLearnTime">学习进度：{{item.myCourseLearn?item.myCourseLearn:0}}'%'</time>
+						          <time class="hasLearnTime">学习进度：{{item.myCourseLearn?item.myCourseLearn:0}}%</time>
 						          <div class="startBtn">
 						          	开始学习
 						          </div>

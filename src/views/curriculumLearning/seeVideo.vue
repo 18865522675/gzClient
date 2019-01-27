@@ -15,8 +15,24 @@ export default {
  	this.url=sessionStorage.getItem("videoUrl");
  	console.log(this.url)
   },
+  computed:{
+  	"planId":function(){
+  		return this.$route.params.planId
+  	},
+  	"wareId":function(){
+  		return this.$route.params.wareId
+  	}
+  },
   methods: {
 
+  },
+  beforeDestroy(){
+	this.$api.curriculumLearning.save_wareTime(this.wareId,{
+		planId:this.planId,
+		position:20
+	}).then(()=>{
+		
+	})
   }
 };
 </script>

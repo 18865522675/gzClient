@@ -2,7 +2,10 @@ import { $ } from "./axios";
 // import { stringify } from "querystring";
 
 export default {
-  get_info: params => $.post("api/student/info", params),
+  get_info: params => $.get("/myInfo/myInfo", params),
+  
+  get_listTrans: params => $.get(" /myInfo/listTrans", params),
+ 
 
   get_state: params => $.post("api/student/school", params),
 

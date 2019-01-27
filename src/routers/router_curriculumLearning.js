@@ -17,7 +17,7 @@ children: [
     },
     {
       path:
-        "/curriculumLearning/myCourse/:courseId",
+        "/curriculumLearning/myCourse/:courseId/:planId",
       name: "myCourse",
       meta: {
         title: "课程学习"
@@ -27,7 +27,7 @@ children: [
     },
     {
       path:
-        "/curriculumLearning/seeVideo",
+        "/curriculumLearning/seeVideo/:wareId/:planId",
       name: "myCourse",
       meta: {
         title: "视频学习"
