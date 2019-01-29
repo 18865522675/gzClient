@@ -105,6 +105,15 @@ let $ = {
       ...config
     };
     return new Promise((resolve, reject) => ajax_main(resolve, reject, obj));
+  },
+  put: (url, params, config) => {
+    let obj = {
+      url,
+      params,
+      method: "put",
+      ...config
+    };
+    return new Promise((resolve, reject) => ajax_main(resolve, reject, obj));
   }
 };
 

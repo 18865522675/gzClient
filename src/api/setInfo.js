@@ -4,6 +4,8 @@ import { $ } from "./axios";
 export default {
   get_info: params => $.get("/myInfo/myInfo", params),
   
+    sureSaveUpload: params => $.put("/account/sign/updateSelf", params),
+  
   get_listTrans: params => $.get(" /myInfo/listTrans", params),
  
 
