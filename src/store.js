@@ -13,7 +13,7 @@ export default new Vuex.Store({
   },
   mutations: {
     set_userInfo(state, res) {
-      return (state.userInfo = res);
+      return (state.userInfo = res.res);
     },
     set_user(state, res) {
       return (state.user = res);

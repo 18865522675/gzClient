@@ -10,6 +10,8 @@ import testQueries from "./testQueries";
 import news from "./news";
 import home from "./home";
 import serviceFeedback from "./serviceFeedback";
+import courseScore from "./courseScore";
+import teachPlan from "./teachPlan";
 //模块目录
 const api = {
   global: {
@@ -27,7 +29,9 @@ const api = {
   testQueries, //考场查询
   news, //消息
   serviceFeedback, //服务反馈
-  home
+  home,
+  courseScore,
+  teachPlan
 };
 
 export default api;

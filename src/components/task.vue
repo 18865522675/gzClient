@@ -2,8 +2,8 @@
   <div>
     <div class="kf-curMy-task-list" v-if="type===0">
       <div class="kf-curMy-task-item" :class="{on: item.status!==1}" @click="task_look(item)" v-for="(item, index) in worksList" :key="index">
-        <div class="kf-curMy-task-cap">{{item.workName}}</div>
-        <div class="kf-curMy-task-tit" v-if="item.status===1">已提交</div>
+        <div class="kf-curMy-task-cap">{{item.name}}</div>
+        <div class="kf-curMy-task-tit" v-if="item.finished">已提交</div>
         <div class="kf-curMy-task-tit" v-else>未完成</div>
       </div>
     </div>
@@ -19,13 +19,13 @@
             <div class="kf-curMy-taskLook-name">一、单选题</div>
             <!--小题-->
             <div class="kf-curMy-taskLook-item" v-for="(item, index) in radioList" :key="index">
-              <div class="kf-curMy-taskLook-tit">{{index+1}}. {{item.exerciseName}}</div>
+              <div class="kf-curMy-taskLook-tit">{{index+1}}. {{item.content}}</div>
               <div class="taskLook-answer column">
                 <div class="taskLook-answer-item" v-for="(optItem, optIndex) in item.options" :key="optIndex">
                   <label class="taskLook-answer-label">
-                    <input type="radio" :name="'radio1_'+index" v-model="item.check" :value="optItem.id">
+                    <input type="radio" :name="'radio1_'+index" v-model="item.check" :value="optItem">
                     <i></i>
-                    <span class="taskLook-answer-name">{{optItem.content}}</span>
+                    <span class="taskLook-answer-name">{{optItem}}</span>
                   </label>
                 </div>
               </div>
@@ -36,13 +36,13 @@
             <div class="kf-curMy-taskLook-name">二、多选题</div>
             <!--小题-->
             <div class="kf-curMy-taskLook-item" v-for="(item, index) in checkList" :key="index">
-              <div class="kf-curMy-taskLook-tit">{{index+1}}. {{item.exerciseName}}</div>
+              <div class="kf-curMy-taskLook-tit">{{index+1}}. {{item.content}}</div>
               <div class="taskLook-answer column">
                 <div class="taskLook-answer-item" v-for="(optItem, optIndex) in item.options" :key="optIndex">
                   <label class="taskLook-answer-label">
-                    <input type="checkbox" :name="'check2_'+index" v-model="item.check" :value="optItem.id">
+                    <input type="checkbox" :name="'check2_'+index" v-model="item.check" :value="optItem">
                     <i></i>
-                    <span class="taskLook-answer-name">{{optItem.content}}</span>
+                    <span class="taskLook-answer-name">{{optItem}}</span>
                   </label>
                 </div>
               </div>
@@ -53,19 +53,19 @@
             <div class="kf-curMy-taskLook-name">三、判断</div>
             <!--小题-->
             <div class="kf-curMy-taskLook-item" v-for="(item, index) in judgeList" :key="index">
-              <div class="kf-curMy-taskLook-tit img" v-if="ifImg(item.exerciseName)">
+              <!--<div class="kf-curMy-taskLook-tit img" v-if="ifImg(item.name)">
                 {{index+1}}.
                 <div class="kf-curMy-taskLook-tit-img">
                   <img :src="$api.global.img+item.exerciseName" alt="" class="">
                 </div>
-              </div>
-              <div class="kf-curMy-taskLook-tit" v-else>{{index+1}}. {{item.exerciseName}}</div>
+              </div>-->
+              <div class="kf-curMy-taskLook-tit" >{{index+1}}. {{item.content}}</div>
               <div class="taskLook-answer">
                 <div class="taskLook-answer-item" v-for="(optItem, optIndex) in item.options" :key="optIndex">
                   <label class="taskLook-answer-label">
-                    <input type="radio" :name="'judge3_'+index" v-model="item.check" :value="optItem.id">
+                    <input type="radio" :name="'judge3_'+index" v-model="item.check" :value="optItem">
                     <i></i>
-                    <span class="taskLook-answer-name">{{optItem.content}}</span>
+                    <span class="taskLook-answer-name">{{optItem}}</span>
                   </label>
                 </div>
               </div>
@@ -103,17 +103,15 @@ export default {
       }
     }
   },
-  mounted() {},
+  mounted() {
+  	this.get_task_list();
+  },
   methods: {
     get_task_list() {
       this.$api.curriculumLearning
-        .get_task_list({
-          currentPage: 1,
-          limitNum: 10000,
-          planId: this.planId
-        })
+        .get_task_list(this.planId)
         .then(res => {
-          res.data.results ? (this.worksList = res.data.results) : [];
+          res.data ? (this.worksList = res.data) : [];
           this.$emit("update:getList", this.worksList);
         })
         .catch(res => {
@@ -122,31 +120,80 @@ export default {
     },
     get_task_info() {
       this.$api.curriculumLearning
-        .get_task_info({
-          currentPage: 1,
-          limitNum: 10000,
-          workId: this.workId
-        })
+        .get_task_info(this.workId)
         .then(res => {
-          if (!res.data.results) {
+          if (!res.data.exercises) {
             this.exerciseNum = 1;
             return;
           }
+          this.exerciseNum = 0;
           //整理数据
           let radioList = []; //单选
           let checkList = []; //多选
           let judgeList = []; //判断
-          res.data.results.map(item => {
-            switch (item.exerciseType) {
-              case "106": // 单选
+          res.data.exercises.map(item => {
+          	item.options=[];
+          	let optionsArr=["optionA","optionB","optionC","optionD","optionE","optionF","optionF"];
+          	for(let i of optionsArr){
+          		if(item[i]){
+          			item.options.push(item[i])
+          		}
+          	}
+            switch (item.type) {
+              case 2: // 单选
                 item.check = {};
                 radioList.push(item);
                 break;
-              case "107": // 多选
+              case 3: // 多选
                 item.check = [];
                 checkList.push(item);
                 break;
-              case "109": // 判断
+              case 1: // 判断
+                item.check = {};
+                judgeList.push(item);
+                break;
+            }
+          });
+
+          this.radioList = radioList;
+          this.checkList = checkList;
+          this.judgeList = judgeList;
+        })
+        .catch(res => {
+          console.log(res);
+        });
+    },
+    get_task_finishInfo(){
+    	this.$api.curriculumLearning
+        .get_task_finishInfo(this.workId)
+        .then(res => {
+          if (!res.data.exercises) {
+            this.exerciseNum = 1;
+            return;
+          }
+          this.exerciseNum = 0;
+          //整理数据
+          let radioList = []; //单选
+          let checkList = []; //多选
+          let judgeList = []; //判断
+          res.data.exercises.map(item => {
+          	item.options=[];
+          	let optionsArr=["optionA","optionB","optionC","optionD","optionE","optionF","optionF"];
+          	for(let i of optionsArr){
+          		if(item[i]){
+          			item.options.push(item[i])
+          		}
+          	}
+            switch (item.type) {
+              case 2: // 单选
+                item.check = {};
+                radioList.push(item);
+                break;
+              case 3: // 多选
+                item.check = [];
+                checkList.push(item);
+                break;
+              case 1: // 判断
                 item.check = {};
                 judgeList.push(item);
                 break;
@@ -162,13 +209,20 @@ export default {
         });
     },
     task_look(item) {
-      if (item.status !== 1) {
+      if (item.finished!= 1) {
         this.type = 1;
         this.$nextTick(() => {
           window.scrollTo(0, 1006);
         });
         this.workId = item.workId;
         this.get_task_info();
+      }else{
+      	this.type = 1;
+        this.$nextTick(() => {
+          window.scrollTo(0, 1006);
+        });
+        this.workId = item.workId;
+        this.get_task_finishInfo();
       }
     },
     task_return() {
@@ -176,42 +230,54 @@ export default {
     },
     submit() {
       let list = [];
+      let exerciseIds=[];
+      let answers=[]
       let number = 0;
       let count =
         this.radioList.length + this.checkList.length + this.judgeList.length;
 
       this.radioList.map(item => {
         if (JSON.stringify(item.check) !== "{}") number++;
-        list.push({
-          workId: this.workId,
-          exerciseId: item.exerciseId,
-          answer: item.check
-        });
+//      list.push({
+//        workId: this.workId,
+//        exerciseId: item.exerciseId,
+//        answer: item.check
+//      });
+				exerciseIds.push(item.exerciseId);
+				answers.push(item.check)
       });
       this.checkList.map(item => {
         let answer = [];
-
+				
         if (item.check.length) number++;
         item.check.map(checkItem => {
           answer.push(checkItem);
         });
-        list.push({
-          workId: this.workId,
-          exerciseId: item.exerciseId,
-          answer: answer.join(",")
-        });
+//      list.push({
+//        workId: this.workId,
+//        exerciseId: item.exerciseId,
+//        answer: answer.join(",")
+//      });
+				exerciseIds.push(item.exerciseId);
+				answers.push(answer.join("|"))
       });
       this.judgeList.map(item => {
         if (JSON.stringify(item.check) !== "{}") number++;
-        list.push({
-          workId: this.workId,
-          exerciseId: item.exerciseId,
-          answer: item.check
-        });
+//      list.push({
+//        workId: this.workId,
+//        exerciseId: item.exerciseId,
+//        answer: item.check
+//      });
+				exerciseIds.push(item.exerciseId);
+				answers.push(item.check)
       });
-
+			
+			console.log(exerciseIds);
+			console.log(answers)
+	
       if (number !== count) {
-        this.$message.error("请答完题目再提交");
+      	console.log(number+'--'+count)
+        this.$message.warning("请答完题目再提交");
         return;
       }
       this.$confirm("确认提交作业？", "温馨提示", {
@@ -219,9 +285,11 @@ export default {
         cancelButtonText: "取消"
       })
         .then(() => {
-          console.log(JSON.stringify(list));
           this.$api.curriculumLearning
-            .save_task(this.$store.state.user.studentId, list)
+            .save_task(this.workId,{
+            	exerciseIds:exerciseIds.join(","),
+            	answers:answers.join(",")
+            })
             .then(res => {
               this.$message({
                 type: "success",

@@ -1,5 +1,5 @@
 const router_module = {
-  path: "/none",
+  path: "/curriculumLearning/myCourseLearn",
   meta: {
     title: "我的课程"
   },
@@ -34,6 +34,16 @@ children: [
       },
       component: resolve =>
         require(["../views/curriculumLearning/seeVideo.vue"], resolve)
+    },
+    {
+      path:
+        "/curriculumLearning/discussDetail/:discussId/:name",
+      name: "myCourse",
+      meta: {
+        title: "主题讨论-详情"
+      },
+      component: resolve =>
+        require(["../views/curriculumLearning/discussDetail.vue"], resolve)
     }
 ]
 };

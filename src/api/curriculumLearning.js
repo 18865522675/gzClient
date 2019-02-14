@@ -7,13 +7,15 @@ import { $ } from "./axios";
 export default {
   //我的课程
   get_course: params => $.get("/course/list", params),
+  
+  getCredit: params => $.get("/course/getCredit", params),
 ////我的学期
 //get_item: params => $.post("api/student/terms", params),
 //
 //课件列表
 get_courseware_list: params => $.get("/course/listWare/"+params, {}),
 //打开课件家一次分数
-add_ware_point: params => $.post("/course/startStudy/"+params, {}),
+add_ware_point: (id,params) => $.post("/course/startStudy/"+id, params),
 
 //记录可见时间
 save_wareTime: (id,params) => $.post("/course/studyWare/"+id,params),
@@ -25,10 +27,43 @@ get_coursenote_list: params => $.get("/course/listNote/"+params, {}),
 //savePlayTime: params => $.post("api/student/watch/save", params),
 //
 ////书籍列表
-//get_book_list: params => $.post("api/student/book/querys", params),
+get_book_list: params => $.get("/course/listBook/"+params, {}),
 //
 ////获取作业列表
-//get_task_list: params => $.post("api/student/works/querys", params),
+get_task_list: params => $.get("course/work/"+params+"/listWork", {}),
+
+////获取作业列表
+commitTask: params => $.get("course/work/"+params+"/commitWork", {}),
+
+////获取作业列表
+get_task_info: params => $.get("course/work/"+params+"/listExercise", {}),
+
+get_task_finishInfo: params => $.get("course/work/"+params+"/listFinishedExercise", {}),
+
+
+////主题讨论
+get_discuss_list: params => $.get("/course/note/listDiscuss/"+params, {}),
+
+get_discuss_content: (id,params) => $.get("/course/note/listContent/"+id, params),
+
+add_discuss: params => $.post("/course/note/saveContent", params),
+
+del_discuss: params => $.delete("/course/note/removeContent/"+params, {}),
+
+
+//问答
+get_qa_list: (id,params) => $.get("/course/qa/list/"+id, params),
+
+
+add_qa: params => $.post("/course/qa/save", params),
+
+edit_qa: (id,params) => $.put("/course/qa/update/"+id, params),
+
+del_qa: (id) => $.put("/course/qa/remove/"+id,{}),
+
+save_task:(workId,params) => $.post("/course/work/"+workId+"/commitWork", params),
+
+
 ////获取作业详情
 //get_task_info: params => $.post("api/student/exercise/querys", params),
 ////保存作业

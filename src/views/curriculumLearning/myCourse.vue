@@ -30,19 +30,21 @@
       </div>
     </div>-->
     <div class="kf-curMy-tab">
-      <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==0}" @click="tab_change(0)" >课件</div>
-      <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==1}" @click="tab_change(1)">书籍</div>
-      <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==2}" @click="tab_change(2)">作业</div>
-      <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==3}" @click="tab_change(3)">留言</div>
-      <div class="kf-curMy-tab-item" :class="{on: sign.tabInd==4}" @click="tab_change(4)">评价</div>
+      <div class="kf-curMy-tab-item" :class="{on: showTab==0}" @click="tab_change(0)" >课件</div>
+      <div class="kf-curMy-tab-item" :class="{on: showTab==1}" @click="tab_change(1)">书籍</div>
+      <div class="kf-curMy-tab-item" :class="{on: showTab==2}" @click="tab_change(2)">作业</div>
+      <!--<div class="kf-curMy-tab-item" :class="{on: showTab==3}" @click="tab_change(3)">留言</div>-->
+      <!--<div class="kf-curMy-tab-item" :class="{on: showTab==4}" @click="tab_change(4)">评价</div>-->
+       <div class="kf-curMy-tab-item" :class="{on: showTab==5}" @click="tab_change(5)">主题讨论</div>
+        <div class="kf-curMy-tab-item" :class="{on: showTab==6}" @click="tab_change(6)">问答</div>
     </div>
     <!--课件-->
-    <div class="kf-curMy-bd" v-show="sign.tabInd==0">
+    <div class="kf-curMy-bd" v-if="showTab==0">
       <div class="kf-curMy-kj-list">
         <div class="kf-curMy-kj-item" :class="{on: item.on}" v-for="(item, index) in waresList" :key="index" @click="startPlay(item)">
           <div class="kf-curMy-kj-left">
             <div class="kf-curMy-kj-cap">第{{index+1}}讲</div>
-            <div class="kf-curMy-kj-text">{{item.wareName}}</div>
+            <div class="kf-curMy-kj-text">{{item.name}}</div>
           </div>
           <div class="kf-curMy-kj-right">
             <div class="kf-curMy-kj-ico"></div>
@@ -55,29 +57,39 @@
       <div class="kf-listNot" v-if="!waresList.length">当前没有课件</div>
     </div>
     <!--书籍-->
-    <div class="kf-curMy-bd" v-show="sign.tabInd==1" >
-      <bookLook :headStatus="false" :planId="sign.planId" :getList.sync="bookList"/>
+    <div class="kf-curMy-bd" v-if="showTab==1" >
+      <bookLook :headStatus="false" :planId="sign.planId" :courseId="courseIds" :getList.sync="bookList"/>
     </div>
     <!--作业-->
-    <div class="kf-curMy-bd" v-show="sign.tabInd==2">
+    <div class="kf-curMy-bd" v-if="showTab==2">
       <task :planId="sign.planId" :getList.sync="worksList"></task>
     </div>
     <!--留言-->
-    <div class="kf-curMy-bd" v-show="sign.tabInd==3">
-      <leavingMessage :planId="sign.planId" :getList.sync="questionList"></leavingMessage>
+    <div class="kf-curMy-bd" v-if="showTab==3">
+      <!--<leavingMessage :planId="sign.planId" :getList.sync="questionList"></leavingMessage>-->
     </div>
     <!--评价-->
-    <div class="kf-curMy-bd" v-show="sign.tabInd==4">
-      <evaluate :wareCourseId="sign.wareCourseId" :planId="sign.planId" :getList.sync="starsList"></evaluate>
+    <!--<div class="kf-curMy-bd" v-if="showTab==4">
+   		<evaluate :wareCourseId="sign.wareCourseId" :planId="sign.planId" :getList.sync="starsList"></evaluate>
+    </div>-->
+     <div class="kf-curMy-bd" v-if="showTab==5">
+     	<discuss></discuss>
+      <!--<evaluate :wareCourseId="sign.wareCourseId" :planId="sign.planId" :getList.sync="starsList"></evaluate>-->
+    </div>
+     <div class="kf-curMy-bd" v-if="showTab==6">
+     	<aq></aq>
+      <!--<evaluate :wareCourseId="sign.wareCourseId" :planId="sign.planId" :getList.sync="starsList"></evaluate>-->
     </div>
   </div>
 </template>
 
 <script>
 import bookLook from "../../components/bookLook";
+import discuss from "../../components/discuss";
 import task from "../../components/task";
 import leavingMessage from "../../components/leavingMessage";
 import evaluate from "../../components/evaluate";
+import aq from "../../components/aq";
 import "../../assets/css/curriculumLearning.less";
 
 export default {
@@ -108,17 +120,22 @@ export default {
       bookList: [], //书籍
       worksList: [], //作业
       questionList: [], //留言
-      starsList: [] //评价
+      starsList: [], //评价
+      showTab:0
     };
   },
   components: {
     bookLook,
     task,
     leavingMessage,
-    evaluate
+    evaluate,
+    discuss,
+    aq
   },
   mounted() {
-//  this.sign = this.$route.params;
+    this.sign = this.$route.params;
+    this.sign.tabInd=0	
+//		console.log(this.sign)
 //  this.watchForm.id = this.sign.wareCourseId;
 //  this.watchForm.planId = this.sign.planId;
     this.get_courseware_list();
@@ -133,7 +150,7 @@ export default {
   },
   methods: {
     tab_change(ind) {
-      this.sign.tabInd = ind;
+      this.showTab = ind;
     },
     //获取课件列表
     get_courseware_list() {
@@ -163,11 +180,13 @@ export default {
     },
     startPlay(item) {
     	sessionStorage.setItem("videoUrl",item.url);
-    	this.$api.curriculumLearning.add_ware_point(this.planId).then(()=>{
-//  		this.$message.success("")
-  	this.$router.push('/curriculumLearning/seeVideo');
-    	})
- 
+//  	this.$api.curriculumLearning.add_ware_point(this.courseIds,{
+//  		planId:this.planId
+//  	}).then(()=>{
+//	this.$router.push('/curriculumLearning/seeVideo');
+//  	})
+		
+		this.$router.push(`/curriculumLearning/seeVideo/${item.id}/${this.planId}`);
     	
 //    let myVideo = document.getElementById("myVideo");
 //

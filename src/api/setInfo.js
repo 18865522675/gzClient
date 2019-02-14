@@ -4,7 +4,7 @@ import { $ } from "./axios";
 export default {
   get_info: params => $.get("/myInfo/myInfo", params),
   
-  get_listTrans: params => $.get(" /myInfo/listTrans", params),
+  get_listTrans: params => $.get("/myInfo/listTrans", params),
  
 
   get_state: params => $.post("api/student/school", params),

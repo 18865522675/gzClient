@@ -51,47 +51,23 @@ export default {
   },
   props: ["headStatus", "planId", "courseId"],
   watch: {
-    planId: function() {
-      if (this.planId) {
-        this.get_book_list();
-      }
-    },
     //入学复习书籍
     courseId: function() {
       if (this.courseId) {
-        this.get_pertutaor_book_list();
+        this.get_book_list();
       }
     }
   },
-  mounted() {},
+  mounted() {
+  	this.get_book_list();	
+  },
   methods: {
-    //入学复习获取书籍
-    get_pertutaor_book_list() {
-      this.$api.preschoolReview
-        .get_pertutaor_book_list({
-          currentPage: 1,
-          limitNum: 10000,
-          courseId: this.courseId
-        })
-        .then(res => {
-          res.data.results ? (this.bookList = res.data.results) : this.bookList;
-          this.bookList.map(item => (item.on = false));
-          this.$emit("update:getList", this.bookList);
-        })
-        .catch(res => {
-          console.log(res);
-        });
-    },
     //获取书籍
     get_book_list() {
       this.$api.curriculumLearning
-        .get_book_list({
-          currentPage: 1,
-          limitNum: 10000,
-          planId: this.planId
-        })
+        .get_book_list(this.courseId)
         .then(res => {
-          res.data.results ? (this.bookList = res.data.results) : this.bookList;
+          res.data ? (this.bookList = res.data) : this.bookList;
           this.bookList.map(item => (item.on = false));
           this.$emit("update:getList", this.bookList);
         })
@@ -100,10 +76,10 @@ export default {
         });
     },
     book_look(item) {
-      if (item.playUrl.indexOf("http://") > -1) {
+      if (item.url.indexOf("http://") > -1) {
         item.on = true;
         this.type = 1;
-        this.bookSrc = this.planId ? item.url : item.playUrl;
+        this.bookSrc = this.planId ? item.url : item.url;
         this.bookImg = item.logo;
         this.bookStatus = true;
         this.$nextTick(() => {

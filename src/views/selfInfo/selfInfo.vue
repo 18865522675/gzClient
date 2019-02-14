@@ -29,7 +29,8 @@
             </li>
             <li>
               <div>层&nbsp;&nbsp;&nbsp;&nbsp;次：</div>
-              <div>{{information.levelName}}</div>
+              <div>{{information.level==1?'高起专':information.level==2?'专升本':'高起本'}}</div>
+              <!--{{scope.row.level==1?'高起专':scope.row.level==2?'专升本':'高起本'}}-->
             </li>
             <li>
               <div>专&nbsp;&nbsp;&nbsp;&nbsp;业：</div>
@@ -45,7 +46,7 @@
             </li>
             <li>
               <div>学籍状态：</div>
-              <div class="status" @click="stateForm">{{information.schoolStateName}}</div>
+              <div class="status" @click="stateForm">{{transSchoolStatus(information.schoolStatus)}}</div>
             </li>
 
           </ul>
@@ -88,7 +89,7 @@
       <!-- <span>需要注意的是内容是默认不居中的</span> -->
       <div class="leranStatus" v-for="(item,index) in schoolState" :key="index">
         <span>{{item.totalTime}}</span>
-        <span>{{item.schoolStateGet}}</span>
+        <span>{{transStatus(item.newValue)}}</span>
       </div>
       <!-- <div class="leranStatus">
         <span>{{schoolState.transactionTime}}</span>
@@ -184,7 +185,7 @@ export default {
         .then(res => {
           // console.log(res.data);
           this.information = res.data;
-          this.formData.photo = this.information.photo;
+          this.formData.photo = this.information.logo;
           this.formData.virtualAccount = this.information.virtualAccount;
           // if (!this.information.photo) {
           //   this.formData.photo = "/img/Picture.28b50584.png";
@@ -206,7 +207,7 @@ export default {
             item.totalTime = this.$fun.table.time(
               null,
               null,
-              item.transactionTime
+              item.createTime
             );
             for (let i of this.schoolStateData) {
               if (i.value == item.statusName) {
@@ -224,8 +225,7 @@ export default {
         if (valid) {
           this.$api.setInfo
             .edit_photo({
-              imgPath: this.formData.photo,
-              virtualAccount: this.formData.virtualAccount
+              logo: this.formData.photo
             })
             .then(() => {
               this.$message({
@@ -250,6 +250,7 @@ export default {
         });
         // console.log(res);
         this.formData.photo = res.data;
+        this.save()
         this.$nextTick(() => {
           this.random = Math.random();
         });
@@ -282,6 +283,17 @@ export default {
         });
       }
     },
+    transSchoolStatus(val){
+    	switch(val){
+    		case 0:return '考前';
+    		case 1:return '正常';
+    		case 2:return '休学 ';
+    		case 3:return '退学 ';
+    		case 4:return '延迟毕业';
+    		case 5:return '肄业';
+    		case 6	:return '毕业';
+    	}
+    },
     beforeAvatarUpload(file) {
       const isJPEG = file.type === "image/jpeg";
       const isJPG = file.type === "image/jpeg";
@@ -302,6 +314,16 @@ export default {
         });
       }
       return (isJPG || isGIF || isPNG || isJPEG) && isLt2M;
+    },
+    transStatus(val){
+    	switch(+val){
+    		case 1:return '正常';
+    		case 2:return '休学';
+    		case 3:return '退学';
+    		case 4:return '延迟毕业';
+    		case 5:return '肄业';
+    		case 6:return '毕业';
+    	}
     }
   }
 };
@@ -403,7 +425,7 @@ export default {
   width: 180px;
   height: 48px;
   border: 0;
-  background: #6d8bfa;
+  background: #435A95;
   border-radius: 4px;
   font-family: PingFangSC-Regular;
   font-size: 18px;

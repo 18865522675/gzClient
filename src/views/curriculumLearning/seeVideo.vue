@@ -1,19 +1,22 @@
 <template>
-  <div class="homeWrap">
-  	<video :src="url" preload="auto" style="width:100%;height:500px" autoplay="autoplay"></video>
+  <div class="videoWrap">
+  	<video :src="url" preload="auto" controls="controls" style="width:100%;height:500px" autoplay="autoplay"></video>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-    	url:''
+    	url:'',
+    	wareId:"",
+    	planId:''
     };
   },
   components: {},
   mounted() {
  	this.url=sessionStorage.getItem("videoUrl");
- 	console.log(this.url)
+	this.wareId=this.$route.params.wareId;
+	this.planId=this.$route.params.planId;
   },
   computed:{
   	"planId":function(){
@@ -26,7 +29,8 @@ export default {
   methods: {
 
   },
-  beforeDestroy(){
+  destroyed(){
+  	console.log(this.wareId)
 	this.$api.curriculumLearning.save_wareTime(this.wareId,{
 		planId:this.planId,
 		position:20
@@ -37,4 +41,7 @@ export default {
 };
 </script>
 <style lang="less">
+	.videoWrap{
+		background: black;
+	}
 </style>

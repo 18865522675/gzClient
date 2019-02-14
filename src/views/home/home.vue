@@ -5,24 +5,50 @@
   			<div style="font-weight: bold;">
   				通知公告
   			</div>
-  			<span style="font-size: 12px;">更多 <i class="el-icon-arrow-right"></i></span>
+  			<span style="font-size: 12px;cursor: pointer;" @click="$router.push('/newsList')">更多 <i class="el-icon-arrow-right"></i></span>
   		</div>
   		<div class="noticeBody">
-  				<div class="noticeBodyItem flex-r" v-for="(item,index) in noticeList" :key="index">
-  						<span>{{$fun.time(item.publishTime)}}【{{item.stationName}}】</span>
+  				<div  v-if="noticeList.length"> 
+  					<div class="noticeBodyItem flex-r" v-for="(item,index) in noticeList" @click="$router.push('/newsDetail/'+item.id+'/1')" :key="index">
+  						<span>{{$fun.time(item.publishTime)}}【{{item.sendName}}】</span>
   						<span>{{item.title}}</span>
-  				</div>		
+  				 </div>		
+  				</div>
+  				<div v-else class="notip">
+  					暂无消息
+  				</div>
+  		</div>
+  	</div>
+  	
+  	<div class="noticeWrap commonWrapSty" style="margin-top: 30px;">
+  		<div class="noticeHeader flex-r">
+  			<div style="font-weight: bold;">
+  				站内信
+  			</div>
+  			<span style="font-size: 12px;cursor: pointer;" @click="$router.push('/newsList')">更多 <i class="el-icon-arrow-right"></i></span>
+  		</div>
+  		<div class="noticeBody">
+  				<div v-if="mesList.length">
+  					<div class="noticeBodyItem flex-r" v-for="(item,index) in mesList" @click="$router.push('/newsDetail/'+item.id+'/2')" :key="index">
+  						<span>{{$fun.time(item.publishTime)}}【{{item.sendName}}】</span>
+  						<span>{{item.title}}</span>
+  			  	</div>	
+  				</div>	
+  				<div v-else class="notip">
+  					暂无站内信
+  				</div>
+  				
   		</div>
   	</div>
   	
   	<div class="courseStudyWrap marT30 commonWrapSty">
   			<div class="courseStudyWrap-title flex-r">
   				<span style="font-size: 18px;">课程学习 <span style="font-size: 13px;">COURSE STUDY</span></span>
-  				学期切换
+  				<!--学期切换-->
   			</div>
   			<div class="courseStudyWrap-body">
   				<div class="nowLearnScore">
-  					已修学分：6/100
+  					已修学分：{{staticInfo.gainCredit}}/{{staticInfo.totalCredit}}
   				</div>
   				<div class="courseList flex-r">
   					<div class="courseItem" v-for="(item,index) in courseList" :key="index">
@@ -30,18 +56,26 @@
 						      <img src="../../assets/img/figure.png" class="image">
 						      <div style="padding: 14px;">
 						        <div class="courseName">
-						        	{{item}}
+						        	{{item.siteCourseName}}
 						        </div>
 						        <div  class="courseTime">
-						        	6学分
+						        	{{item.courseCredit}}学分
 						        </div>
 						        
-						        <div class="bottom clearfix flex-r" style="align-items: center;justify-content: space-between;">
-						          <time class="hasLearnTime">学习进度：{{item.myCourseLearn?item.myCourseLearn:0}}'%'</time>
-						          <div class="startBtn">
+						       <div class="bottom clearfix flex-r" style="align-items: center;justify-content: space-between;">
+						          <time class="hasLearnTime">学习进度：{{item.finishedPercent?item.finishedPercent:0}}%</time>
+						          <div class="startBtn" v-if="!item.finishedPercent" @click="$router.push(`/curriculumLearning/myCourse/${item.courseId}/${item.planId}`)">
 						          	开始学习
 						          </div>
+						          <div class="courseOver" v-else-if="item.finishedPercent==100"  @click="$router.push(`/curriculumLearning/myCourse/${item.courseId}/${item.planId}`)">
+						          	已完成
+						          </div>
+						           <div class="startBtn" v-else  @click="$router.push(`/curriculumLearning/myCourse/${item.courseId}/${item.planId}`)">
+						          	继续学习
+						          </div>
 						        </div>
+						        
+						        
 						      </div>
 						    </el-card>
   					</div>
@@ -55,16 +89,32 @@
   </div>
 </template>
 <script>
+	import { mapState } from "vuex";
 export default {
   data() {
     return {
     	courseList:[],
-    	noticeList:[]
+    	noticeList:[],
+    	
+    	term:1,
+    	staticInfo:{},
+    	mesList:[]
     };
   },
   components: {},
   mounted() {
-  	this.get_homeNotice()
+  	this.get_homeNotice();
+  	this.get_course();
+  	this.getMesList();
+//	this.getCredit()
+  },
+ computed: mapState(["userInfo"]),
+  watch:{
+ 	 "userInfo":function(n){
+ 	 		if(Object.keys(n).length){
+ 	 			this.term=n.term
+ 	 		}
+ 	 }
   },
   methods: {
 //	get_homeCourse(){
@@ -74,9 +124,34 @@ export default {
 //	},
   	get_homeNotice(){
   		this.$api.home.get_homeNotice().then((res)=>{
-  			this.noticeList=res.data.noticeVoList
+  			if(res.data.noticeVoList){
+  				alert(123)
+  				this.noticeList=res.data.noticeVoList
+  			}
+  			
   		})
-  	}
+  	},
+  	getMesList(){
+  		this.$api.home.get_MesList().then((res)=>{
+  			this.mesList=res.data.pageList.slice(0,5)
+  		})
+  	},
+  		get_course(){
+  		this.$api.curriculumLearning.get_course({
+  			pageNum:1,
+  			pageSize:4,
+  			term:this.userInfo.term
+  		}).then((res)=>{
+  			this.courseList=res.data.pageList
+  		})
+  	},
+  	getCredit(){
+  		this.$api.curriculumLearning.getCredit({
+  			term:this.userInfo.term
+  		}).then((res)=>{
+  			this.staticInfo=res.data
+  		})
+  	},
   }
 };
 </script>
@@ -155,5 +230,26 @@ export default {
 			}
 		}
 	}
+	
+		.startBtn{
+						cursor: pointer;
+						border:1px solid black;
+						padding: 2px 5px;
+						border-radius: 5px;
+						font-size: 13px;
+						&:hover{
+							color:white;
+							background: rgba(0,0,0,0.6);
+						}
+					}
+					.courseOver{
+						font-size: 12px;
+						color:gray;	
+					}
+					.notip{
+						text-align: center;
+						line-height: 40px;
+						color:gray;
+					}
 }
 </style>

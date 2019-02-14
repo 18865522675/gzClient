@@ -36,10 +36,10 @@
         <p class="logtit">平台登录</p>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
           <el-form-item prop="account">
-            <el-input v-model="ruleForm.account" placeholder="请输入账号"></el-input>
+            <el-input v-model.trim="ruleForm.account" placeholder="请输入账号"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input type="password" v-model="ruleForm.password" placeholder="请输入登录密码"></el-input>
+            <el-input type="password" v-model.trim="ruleForm.password" placeholder="请输入登录密码"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button @click="submitForm('ruleForm')" @keyup="submitForm('ruleForm')" style="width:70%;font-size:18px;background:#FFBB51;color:#fff;border:0;">登陆</el-button>
@@ -101,7 +101,7 @@ export default {
         that.submitForm("ruleForm");
       }
     };
-    this.get_List()
+//  this.get_List()
   },
   methods: {
     hint() {
