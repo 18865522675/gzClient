@@ -69,8 +69,8 @@
           <el-form-item prop="photo">
             <el-input type="textarea" v-model.trim="formData.photo" style="display: none;"></el-input>
             <!-- <img width="30%" height="20%" :src="require('../../assets/img/selfPic.png')" alt="" class="kf-form-upImg" v-if="!formData.photo"> -->
-            <div :style="{backgroundImage: 'url('+require('../../assets/img/Picture.png')+')'}" v-if="!formData.photo" class="kf-form-upImg"></div>
-            <div class="kf-form-upImg" :style="{backgroundImage: 'url('+formData.photo+')'}" v-else></div>
+            <div :style="{backgroundImage: 'url('+require('../../assets/img/Picture.png')+')'}" v-if="!formData.photo"  class="kf-form-upImg"></div>
+            <div class="kf-form-upImg" :style="{backgroundImage: 'url('+formData.photo+')'}"  v-else></div>
             <!-- <router-link to="/preschoolReview/preschoolReview" class="learn_bg lbg_3" :style="{backgroundImage: 'url('+require('../../assets/img/photo3.png')+')'}"></router-link> -->
             <!-- <img width="30%" height="20%" :src="$api.global.img+formData.photo+'?'+random" alt="" class="kf-form-upImg" v-else> -->
             <!-- <img width="30%" height="20%" :src="$api.global.img+formData.photo" alt="" class="kf-form-upImg"> -->
@@ -80,12 +80,14 @@
               :on-success="upSuccess"
               :on-error="upError"
               name='imageFile'
+              ref="uploadPhoto"
               :on-progress="upProgress"
               :show-file-list="false"
               :before-upload="beforeAvatarUpload"
-              :with-credentials="true">
-              <el-button size="small" type="primary" class="setinfo_upload">修改头像</el-button>
+              :with-credentials="true"  v-if="isUp">
+              <el-button size="small" type="primary" class="setinfo_upload" v-if="isUp">上传头9像</el-button>
             </el-upload>
+              <el-button size="small" type="primary" class="setinfo_upload" @click="sureSaveUpload"  v-else>保存头像</el-button>
           </el-form-item>
           <!--<el-form-item label="虚拟名称 :" class="sel-bot" prop="name">
               <el-input placeholder="请输入虚拟名称" v-model="formData.virtualAccount"  :disabled="information.virtualAccount!=null">小丸子</el-input>
@@ -131,6 +133,7 @@ export default {
         photo: "",
         virtualAccount: ""
       },
+      isUp:true,
       random: "",
       schoolStateData: [
         {
@@ -214,6 +217,14 @@ export default {
     this.get_List();
   },
   methods: {
+  	  	sureSaveUpload(){
+  		this.$api.setInfo.sureSaveUpload({
+  			logo:this.formData.photo
+  		}).then((res)=>{
+  			this.isUp=!this.isUp;
+  			this.$message.success("头像保存成功！")
+  		})
+  	},
     get_List() {
       this.$api.setInfo
         .get_info()
@@ -278,6 +289,7 @@ export default {
       });
     },
     upSuccess(res) {
+    	this.isUp=!this.isUp;
       if (res.code === 0) {
         this.$message({
           message: "上传成功",
