@@ -23,9 +23,10 @@
               <div class="taskLook-answer column">
                 <div class="taskLook-answer-item" v-for="(optItem, optIndex) in item.options" :key="optIndex">
                   <label class="taskLook-answer-label">
-                    <input type="radio" :name="'radio1_'+index" v-model="item.check" :value="optItem">
+                  	<span style="display: inline-block;margin-left: -25px;">({{changeNum(optIndex)}})</span>
+                    <input type="radio" :disabled="isSee" :name="'radio1_'+index" v-model="item.check" :value="changeNum(optIndex)">
                     <i></i>
-                    <span class="taskLook-answer-name">{{optItem}}</span>
+                    <span class="taskLook-answer-name" style="display: inline-block;margin-left: 40px;">{{optItem}}</span>
                   </label>
                 </div>
               </div>
@@ -40,16 +41,17 @@
               <div class="taskLook-answer column">
                 <div class="taskLook-answer-item" v-for="(optItem, optIndex) in item.options" :key="optIndex">
                   <label class="taskLook-answer-label">
-                    <input type="checkbox" :name="'check2_'+index" v-model="item.check" :value="optItem">
+                  	<span style="display: inline-block;margin-left: -25px;">({{changeNum(optIndex)}})</span>
+                    <input type="checkbox"   :name="'check2_'+index" v-model="item.check" :value="changeNum(optIndex)">
                     <i></i>
-                    <span class="taskLook-answer-name">{{optItem}}</span>
+                    <span class="taskLook-answer-name"  style="display: inline-block;margin-left: 40px;">{{optItem}}</span>
                   </label>
                 </div>
               </div>
             </div>
           </div>
           <!--大题--判断-->
-          <div class="kf-curMy-taskLook-group">
+          <div class="kf-curMy-taskLook-group" v-if="judgeList.length">
             <div class="kf-curMy-taskLook-name">三、判断</div>
             <!--小题-->
             <div class="kf-curMy-taskLook-item" v-for="(item, index) in judgeList" :key="index">
@@ -62,8 +64,8 @@
               <div class="kf-curMy-taskLook-tit" >{{index+1}}. {{item.content}}</div>
               <div class="taskLook-answer">
                 <div class="taskLook-answer-item" v-for="(optItem, optIndex) in item.options" :key="optIndex">
-                  <label class="taskLook-answer-label">
-                    <input type="radio" :name="'judge3_'+index" v-model="item.check" :value="optItem">
+                  <label class="taskLook-answer-label">			
+                    <input type="radio" :disabled="isSee" :name="'judge3_'+index" v-model="item.check" :value="changeNum(optIndex)">
                     <i></i>
                     <span class="taskLook-answer-name">{{optItem}}</span>
                   </label>
@@ -72,7 +74,7 @@
             </div>
           </div>
           <div class="kf-curMy-taskLook-ft">
-            <div class="kf-curMy-taskLook-btn" @click="submit">提交</div>
+            <div class="kf-curMy-taskLook-btn" v-if="!isSee" @click="submit">提交</div>
             <!--<div class="kf-curMy-taskLook-btn none" @click="save">保存</div>-->
           </div>
         </div>
@@ -92,7 +94,8 @@ export default {
       judgeList: [], //判断
       worksList: [],
       workId: "",
-      exerciseNum: 1
+      exerciseNum: 1,
+      isSee:false
     };
   },
   props: ["planId"],
@@ -122,7 +125,7 @@ export default {
       this.$api.curriculumLearning
         .get_task_info(this.workId)
         .then(res => {
-          if (!res.data.exercises) {
+          if (!res.data.exercises||!res.data.exercises.length) {
             this.exerciseNum = 1;
             return;
           }
@@ -186,15 +189,15 @@ export default {
           	}
             switch (item.type) {
               case 2: // 单选
-                item.check = {};
+                item.check = item.studentAnswer;
                 radioList.push(item);
                 break;
               case 3: // 多选
-                item.check = [];
+                item.check = item.studentAnswer.split("|");
                 checkList.push(item);
                 break;
               case 1: // 判断
-                item.check = {};
+                item.check = item.studentAnswer;
                 judgeList.push(item);
                 break;
             }
@@ -211,6 +214,7 @@ export default {
     task_look(item) {
       if (item.finished!= 1) {
         this.type = 1;
+        this.isSee=false;
         this.$nextTick(() => {
           window.scrollTo(0, 1006);
         });
@@ -218,6 +222,7 @@ export default {
         this.get_task_info();
       }else{
       	this.type = 1;
+      	this.isSee=true;
         this.$nextTick(() => {
           window.scrollTo(0, 1006);
         });
@@ -229,6 +234,7 @@ export default {
       this.type = 0;
     },
     submit() {
+      
       let list = [];
       let exerciseIds=[];
       let answers=[]
@@ -244,7 +250,7 @@ export default {
 //        answer: item.check
 //      });
 				exerciseIds.push(item.exerciseId);
-				answers.push(item.check)
+				answers.push(item.check);
       });
       this.checkList.map(item => {
         let answer = [];
@@ -269,12 +275,10 @@ export default {
 //        answer: item.check
 //      });
 				exerciseIds.push(item.exerciseId);
-				answers.push(item.check)
+				answers.push(item.check);
+			
       });
 			
-			console.log(exerciseIds);
-			console.log(answers)
-	
       if (number !== count) {
       	console.log(number+'--'+count)
         this.$message.warning("请答完题目再提交");
@@ -303,10 +307,7 @@ export default {
             });
         })
         .catch(() => {
-          // this.$message({
-          //   type: "info",
-          //   message: "已取消提交"
-          // });
+
         });
     },
     save() {
@@ -347,6 +348,9 @@ export default {
         if (str.indexOf(item) > -1) t = true;
       });
       return t;
+    },
+    changeNum(val){
+    	return String.fromCharCode(val+65	)
     }
   }
 };

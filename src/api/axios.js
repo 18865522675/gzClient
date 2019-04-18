@@ -11,10 +11,35 @@ import router from "../router";
 // const HOST = "http://61.153.184.193:8081/";
 // const HOST = "http://192.168.1.25:8080/";
 
-let HOST = "http://47.107.105.141:82/";
+//let HOST = "http://47.107.105.141:82/";
 
 
-const PREFIX_URL = HOST + "client-api/";
+//const PREFIX_URL = HOST + "client-api/";
+
+
+let HOST="";
+let PREFIX_URL=""
+
+if(window.location.href.indexOf("localhost")<0){	
+//		正式
+//	  HOST="http://"+window.location.host.split(":")[0]+":82"
+//	 PREFIX_URL="http://"+window.location.host.split(":")[0]+":82/client-api/";	
+
+//	 测试
+		HOST="http://47.107.105.141:89"
+	 PREFIX_URL="http://47.107.105.141:89/client-api/"
+}else{	
+	
+//	正式
+//		HOST="http://hlh.gzsqwhcm.com:82"
+//	 PREFIX_URL="http://hlh.gzsqwhcm.com:82/client-api/"
+
+	 
+//	 测试
+	 HOST="http://47.107.105.141:89"
+	 PREFIX_URL="http://47.107.105.141:89/client-api/"
+
+}
 
 let ajax_main = (resolve, reject, obj) => {
   let notBodyMethod = ["get"];

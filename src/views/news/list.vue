@@ -13,7 +13,7 @@
   		</div>
   		
   		<div class="noticeBody" style="margin-top: 40px;">
-  				<div class="noticeBodyItem flex-r" v-for="(item,index) in noticeList"  @click="$router.push('/newsDetail/'+item.id)" :key="index">
+  				<div class="noticeBodyItem flex-r" v-for="(item,index) in noticeList"  @click="$router.push('/newsDetail/'+item.id+'/1')" :key="index">
   						<span>{{$fun.time(item.publishTime)}}【{{item.sendName}}】</span>
   						<span>{{item.title}}</span>
   				</div>
@@ -45,7 +45,7 @@
   		
   		<div class="noticeBody">
   				<div v-if="mesList.length" class="marT20">
-  					<div class="noticeBodyItem flex-r" v-for="(item,index) in mesList" @click="$router.push('/newsDetail/'+item.id)" :key="index">
+  					<div class="noticeBodyItem flex-r" v-for="(item,index) in mesList" @click="$router.push('/newsDetail/'+item.id+'/2')" :key="index">
   						<span>{{$fun.time(item.publishTime)}}【{{item.sendName}}】</span>
   						<span>{{item.title}}</span>
   			  	</div>	

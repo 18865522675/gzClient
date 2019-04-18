@@ -14,7 +14,8 @@ import router_news from "./routers/router_news"; //消息
 import router_serviceFeedback from "./routers/router_serviceFeedback"; //服务反馈
 import router_courseScore from "./routers/router_courseScore"; //服务反馈
 import router_teachPlan from "./routers/router_teachPlan"; //服务反馈
-//import router_examArrange from "./routers/router_examArrange"; //服务反馈
+import router_examArrange from "./routers/router_examArrange"; //服务反馈
+import router_paper from "./routers/router_paper"; //服务反馈
 
 //页面
 Vue.use(Router);
@@ -45,7 +46,8 @@ export default new Router({
         router_news, //消息
          router_courseScore, //消息
          router_teachPlan,
-//       router_examArrange
+         router_examArrange,
+         router_paper
 //      router_serviceFeedback //服务反馈
       ]
     }

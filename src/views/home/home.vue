@@ -20,26 +20,6 @@
   		</div>
   	</div>
   	
-  	<div class="noticeWrap commonWrapSty" style="margin-top: 30px;">
-  		<div class="noticeHeader flex-r">
-  			<div style="font-weight: bold;">
-  				站内信
-  			</div>
-  			<span style="font-size: 12px;cursor: pointer;" @click="$router.push('/newsList')">更多 <i class="el-icon-arrow-right"></i></span>
-  		</div>
-  		<div class="noticeBody">
-  				<div v-if="mesList.length">
-  					<div class="noticeBodyItem flex-r" v-for="(item,index) in mesList" @click="$router.push('/newsDetail/'+item.id+'/2')" :key="index">
-  						<span>{{$fun.time(item.publishTime)}}【{{item.sendName}}】</span>
-  						<span>{{item.title}}</span>
-  			  	</div>	
-  				</div>	
-  				<div v-else class="notip">
-  					暂无站内信
-  				</div>
-  				
-  		</div>
-  	</div>
   	
   	<div class="courseStudyWrap marT30 commonWrapSty">
   			<div class="courseStudyWrap-title flex-r">
@@ -53,7 +33,7 @@
   				<div class="courseList flex-r">
   					<div class="courseItem" v-for="(item,index) in courseList" :key="index">
   						    <el-card style="width: 100%;">
-						      <img src="../../assets/img/figure.png" class="image">
+						      <img :src="item.logo?item.logo:'../../assets/img/figure.png'"  @error="imgError(item)"  class="image">
 						      <div style="padding: 14px;">
 						        <div class="courseName">
 						        	{{item.siteCourseName}}
@@ -63,8 +43,8 @@
 						        </div>
 						        
 						       <div class="bottom clearfix flex-r" style="align-items: center;justify-content: space-between;">
-						          <time class="hasLearnTime">学习进度：{{item.finishedPercent?item.finishedPercent:0}}%</time>
-						          <div class="startBtn" v-if="!item.finishedPercent" @click="$router.push(`/curriculumLearning/myCourse/${item.courseId}/${item.planId}`)">
+						          <time class="hasLearnTime">学习进度：{{item.finishedPercent?(item.finishedPercent*100).toFixed(2):0}}%</time>
+						          <div class="startBtn" v-if="!item.finishedPercent" @click="go(item)">
 						          	开始学习
 						          </div>
 						          <div class="courseOver" v-else-if="item.finishedPercent==100"  @click="$router.push(`/curriculumLearning/myCourse/${item.courseId}/${item.planId}`)">
@@ -85,6 +65,27 @@
   			
   	</div>
   		
+  		
+  		  	<div class="noticeWrap commonWrapSty" style="margin-top: 30px;">
+  		<div class="noticeHeader flex-r">
+  			<div style="font-weight: bold;">
+  				站内信
+  			</div>
+  			<span style="font-size: 12px;cursor: pointer;" @click="$router.push('/newsList')">更多 <i class="el-icon-arrow-right"></i></span>
+  		</div>
+  		<div class="noticeBody">
+  				<div v-if="mesList.length">
+  					<div class="noticeBodyItem flex-r" v-for="(item,index) in mesList" @click="$router.push('/newsDetail/'+item.id+'/2')" :key="index">
+  						<span>{{$fun.time(item.publishTime)}}【{{item.sendName}}】</span>
+  						<span>{{item.title}}</span>
+  			  	</div>	
+  				</div>	
+  				<div v-else class="notip">
+  					暂无站内信
+  				</div>
+  				
+  		</div>
+  	</div>
     <!--<div class="footer-small">version: 4.0.1</div>-->
   </div>
 </template>
@@ -106,7 +107,7 @@ export default {
   	this.get_homeNotice();
   	this.get_course();
   	this.getMesList();
-//	this.getCredit()
+	this.getCredit()
   },
  computed: mapState(["userInfo"]),
   watch:{
@@ -122,10 +123,13 @@ export default {
 //			this.courseList=res.data.pageList
 //		})
 //	},
+		imgError(item){
+			console.log(item)
+			 item.logo			= require('../../assets/img/figure.png')	;
+		},
   	get_homeNotice(){
   		this.$api.home.get_homeNotice().then((res)=>{
   			if(res.data.noticeVoList){
-  				alert(123)
   				this.noticeList=res.data.noticeVoList
   			}
   			
@@ -146,12 +150,29 @@ export default {
   		})
   	},
   	getCredit(){
-  		this.$api.curriculumLearning.getCredit({
-  			term:this.userInfo.term
-  		}).then((res)=>{
-  			this.staticInfo=res.data
-  		})
+  		this.$api.setInfo
+        .get_info()
+        .then(res => {
+						this.$api.curriculumLearning.getCredit({
+			  			term:res.data.term
+			  		}).then((res)=>{
+			  			this.staticInfo=res.data
+			  		})
+        })
+        .catch(res => {
+          console.log(res);
+        });
+  		
   	},
+  	go(item){
+  		if(!item.courseId){
+  			return this.$message.warning("该课程暂无匹配资源")
+  		}
+  		if(this.userInfo.agreeStatus!=2){
+  			return this.$message.warning("抱歉，您的资料未审核通过，暂时无法学习！")
+  		}
+  		this.$router.push(`/curriculumLearning/myCourse/${item.courseId}/${item.planId}`)
+  	}
   }
 };
 </script>

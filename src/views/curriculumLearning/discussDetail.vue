@@ -14,13 +14,16 @@
   			</div>
   			<div class="disCussCon">
   				<div class="discussInp">
-  					<el-input v-model.trim="content" placeholder="请输入评论内容...">
+  					<el-input v-model.trim="content" placeholder="请输入讨论内容...">
   						 <el-button slot="append" icon="el-icon-plus" @click="addDiscuss"></el-button>
   					</el-input>
   				</div>
   				<div class="cons">
   					<div class="discussItem flex-r"  v-for="(item,index) in conList" :key="index">
-  						<div class="logo">
+  						<div class="logo"  v-if="userInfo.id!=item.studentId">
+  							
+  						</div>
+  						<div  v-if="userInfo.id==item.studentId" class="logo" :style="{'backgroundImage':'url('+userInfo.logo+')'}">
   							
   						</div>
   						<div class="discussRight marL10" style="flex:1">

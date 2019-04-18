@@ -60,9 +60,24 @@
     </div>
    	<div class="headLogo">
    			<div class="headlogoMain">
-   				<img src="../assets/img/headlogo.png" alt="" />
+   				<img :src="schoolInfo.logo" @error="errorImg(schoolInfo)" alt=""  style="width: 80px;height:80px"/>
+   			</div>
+   			<div class="allCode">
+   				<div class="codeWrap">
+   					<img src="../assets/img/anzhuo.png" alt="" style="width: 100px;"/>
+   					<div class="codeText">
+   					  安卓
+   			  	</div>
+   				</div>
+   				<div class="codeWrap" style="margin-top:30px">
+   					<img src="../assets/img/gzIos.png" alt="" style="width: 100px;"/>
+   					<div class="codeText">
+   					 	IOS
+   			  	</div>
+   				</div>
    			</div>
    	</div>
+   	
   </div>
 </template>
 
@@ -87,7 +102,8 @@ export default {
           name: "毕业设计"
         }
       ],
-      message: {}
+      message: {},
+      schoolInfo:{}
     };
   },
   computed: mapState(["userInfo", "user"]),
@@ -102,6 +118,7 @@ export default {
     if (this.userInfo) {
       this.myStatus = "我的";
     }
+   	this.getSchoolSet()
     // if (sessionStorage.getItem("Token")) {
     //   this.personName = sessionStorage.getItem("userInfo");
     //   console.log(this.personName);
@@ -110,6 +127,17 @@ export default {
   },
   components: {},
   methods: {
+  	errorImg(schoolInfo){
+  		console.log(schoolInfo);
+  		schoolInfo.logo = require('../assets/img/logo.png');
+  	},
+  	getSchoolSet(){
+  		this.$api.home.getSchoolSet().then((res)=>{
+  			this.schoolInfo=res.data;
+  		}).catch(()=>{
+  			this.$message.error("获取学校配置信息失败")
+  		})
+  	},
     get_List() {
       this.$api.setInfo
         .get_info()
@@ -286,6 +314,20 @@ export default {
 }
 .head-user {
   margin-left: auto;
+}
+.codeWrap{
+	background: white;
+	border: 2px solid gray;
+}
+.codeText{
+	font-size: 14px;
+	text-align: center;
+	line-height: 30px;
+}
+.allCode{
+	position: fixed;
+	right: 0px;
+	top:40px
 }
 // .logo_img{
 //   background-position: left center;

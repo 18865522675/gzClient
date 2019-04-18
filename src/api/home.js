@@ -15,6 +15,8 @@ export default {
   
   get_noticeStationDetail: params => $.post("/common/page/read/"+params,{}),
   
+  getSchoolSet: params => $.get("/common/page/setup",{}),
+  
   
  
 };

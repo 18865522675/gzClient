@@ -1,20 +1,22 @@
 <template>
   <div class="videoWrap">
-  	<video :src="url" preload="auto" controls="controls" style="width:100%;height:500px" autoplay="autoplay"></video>
+  	<video :src="playUrl"  controls="controls" style="width:100%;height:500px" autoplay="autoplay"></video>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-    	url:'',
     	wareId:"",
-    	planId:''
+    	planId:'',
+    	playUrl:""
     };
   },
   components: {},
+  created(){
+  	 	this.playUrl=sessionStorage.getItem("videoUrl");
+  },
   mounted() {
- 	this.url=sessionStorage.getItem("videoUrl");
 	this.wareId=this.$route.params.wareId;
 	this.planId=this.$route.params.planId;
   },

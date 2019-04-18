@@ -12,6 +12,8 @@ import home from "./home";
 import serviceFeedback from "./serviceFeedback";
 import courseScore from "./courseScore";
 import teachPlan from "./teachPlan";
+import exam from "./exam";
+import paper from "./paper";
 //模块目录
 const api = {
   global: {
@@ -31,7 +33,9 @@ const api = {
   serviceFeedback, //服务反馈
   home,
   courseScore,
-  teachPlan
+  teachPlan,
+  exam,
+  paper
 };
 
 export default api;

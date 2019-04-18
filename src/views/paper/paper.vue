@@ -3,55 +3,28 @@
   	
   	<div class="courseStudyWrap commonWrapSty">
   			<div class="courseStudyWrap-title flex-r">
-  				<span style="font-size: 18px;">考试安排 <span style="font-size: 13px;">EXAM ARRANGE</span></span>
-  				<div class="termSel">
-  					  <el-select v-model="term" @change="changeCourse" placeholder="请选择学期">
-						    <el-option
-						      v-for="item in termList"
-						      :key="item.id"
-						      :label="item.name"
-						      :value="item.id">
-						    </el-option>
-						  </el-select>
-  				</div>
+  				<span style="font-size: 18px;">毕业设计 <span style="font-size: 13px;">Graduation Project</span></span>
   			</div>
-  			<div v-if="tableData.length" class="courseStudyWrap-body examList marT30 flex-r" style="padding: 0 10px;flex-wrap: wrap;justify-content: space-between;">
-  				<el-card v-for="(item,index) in tableData" class="exam-item" :key="index">
-  					 <div>
-	  						<div>
-	  							科目 :  {{item.siteCourseName}}
-	  						</div>
-	  						<div>
-	  							考试状态 :	  {{item.examType==1?'正考':'补考'}}
-	  						</div>
-	  						<div>
-	  							考试时间 :	   {{$fun.table.time(null,null,item.startTime)}}
-	  						</div>
-	  						<div>
-	  							考试地点 :	   {{item.address}}	
-	  						</div>
-	  						<div>
-	  							考场座位 :	  {{item.sorting}}	
-	  						</div>	
-  					</div>
-  				</el-card>
-  			
+  			<div class="marT20">
+  				<el-tabs type="border-card">
+				  <el-tab-pane label="毕业设计">
+				  	<el-steps :active="active" style="margin-top:50px">
+					  <el-step title="选题" icon="el-icon-edit" data-id="0" @click.native="clickAction(0,'selectTopic')">
+					  </el-step>
+					  <el-step title="开题" icon="el-icon-upload" data-id="1"  @click.native="clickAction(1,'openTopic')"></el-step>
+					  <el-step title="论文" icon="el-icon-picture" @click.native="clickAction(2,'graduatePaper')"></el-step>
+					  <el-step title="答辩" icon="el-icon-picture" @click.native="clickAction(3,'debate')"></el-step>
+					  <el-step title="学位" icon="el-icon-picture" @click.native="clickAction(4,'degree')"></el-step>
+					</el-steps>
+					<div>
+						<router-view></router-view>
+					</div>
+				  </el-tab-pane>
+				  <el-tab-pane label="历史记录">
+				  	
+				  </el-tab-pane>
+				</el-tabs>
   			</div>
-  			<div v-else class="noData">
-  				该学期下暂无考试
-  			</div>
-  			  				<div>
-  						<el-pagination
-			        @size-change="handleSizeChange"
-			        @current-change="handleCurrentChange"
-			        :current-page="pageNum"
-			        :page-size="pageSize"
-			        :page-sizes="[10, 20, 30, 40, 50, 100]"
-			        layout="total, sizes, prev, pager, next, jumper"
-			        :total="total"
-			        class="kf-pagination">
-			      </el-pagination>
-  					</div>
   			
   	</div>
   		
@@ -84,12 +57,14 @@ export default {
     		name:'第五学期',
     		id:5
     	}],
+    	active:0
     };
   },
   components: {},
   mounted() {
 //	this.get_course()
-		this.getList()
+	this.getStepInfo();
+	
   },
   methods: {
   	changeCourse(val){
@@ -118,6 +93,16 @@ export default {
     handleCurrentChange(val) {
       this.pageNum = val;
       this.getList();
+    },
+    clickAction(val,route){
+    	this.active=val;
+    	this.$router.push(`/paper/${route}`)
+    },
+    getStepInfo(){
+    	this.$api.paper.getStepInfo().then((res)=>{
+    		this.stepInfo=res.data;
+    		this.active=res.data.step
+    	})
     }
   }
 };

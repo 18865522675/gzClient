@@ -23,7 +23,7 @@
   					<div class="courseList flex-r" v-if="courseList.length">
   						<div class="courseItem" v-for="(item,index) in courseList" :key="index">
   						    <el-card style="width: 100%;">
-						      <img src="../../assets/img/figure.png" class="image">
+						      <img :src="item.logo?item.logo:'../../assets/img/figure.png'"  @error="imgError(item)"  class="image">
 						      <div style="padding: 14px;">
 						        <div class="courseName">
 						        	{{item.siteCourseName}}
@@ -33,7 +33,7 @@
 						        </div>
 						        
 						        <div class="bottom clearfix flex-r" style="align-items: center;justify-content: space-between;">
-						          <time class="hasLearnTime">学习进度：{{item.finishedPercent?item.finishedPercent:0}}%</time>
+						          <time class="hasLearnTime">学习进度：{{item.finishedPercent?(item.finishedPercent*100).toFixed(2):0}}%</time>
 						          <div class="startBtn" v-if="!item.finishedPercent" @click="go(item)">
 						          	开始学习
 						          </div>
@@ -118,6 +118,10 @@ export default {
  	 }
   },
   methods: {
+  	imgError(item){
+			console.log(item)
+			 item.logo			= require('../../assets/img/figure.png')	;
+		},
   	changeCourse(){
   		this.pageSize=10;
   		this.pageNum=1;
@@ -154,6 +158,9 @@ export default {
     	if(!item.courseId){
     		return this.$message.warning("该课程暂未匹配资源")
     	}
+    	if(this.userInfo.agreeStatus!=2){
+  			return this.$message.warning("抱歉，您的资料未审核通过，暂时无法学习！")
+  		}
     	this.$router.push(`/curriculumLearning/myCourse/${item.courseId}/${item.planId}`)
     }
   }

@@ -20,6 +20,18 @@
               <div>{{information.userName}}</div>
             </li>
             <li>
+              <div>性&nbsp;&nbsp;&nbsp;&nbsp;别：</div>
+              <div>{{information.gender==1?'男':information.gender==2?'女':'未知'}}</div>
+            </li>
+            <li>
+              <div>民&nbsp;&nbsp;&nbsp;&nbsp;族：</div>
+              <div>{{information.nation||'未知'}}</div>
+            </li>
+            <li>
+              <div>身&nbsp;份&nbsp;证：</div>
+              <div>{{information.cardNo||'未知'}}</div>
+            </li>
+            <li>
               <div>学&nbsp;&nbsp;&nbsp;&nbsp;号：</div>
               <div>{{information.code}}</div>
             </li>
@@ -63,7 +75,7 @@
             <!-- <img width="30%" height="20%" :src="$api.global.img+formData.photo+'?'+random" alt="" class="kf-form-upImg" v-else> -->
             <!-- <img width="30%" height="20%" :src="$api.global.img+formData.photo" alt="" class="kf-form-upImg"> -->
             <el-upload
-              action="http://47.107.105.141:82/client-api/common/page/upload"
+              :action="uploadUrl"
               :headers="headers"
               :on-success="upSuccess"
               :on-error="upError"
@@ -171,11 +183,34 @@ export default {
           value: 9,
           label: "转专业"
         }
-      ]
+      ],
+      uploadUrl:""
     };
   },
   components: { headModule },
   mounted() {
+  	let host=location.host;
+  	if(window.location.href.indexOf("localhost")<0&&host!="hlh"&&host!="test"){	
+//		正式
+//	  HOST="http://"+window.location.host.split(":")[0]+":82"
+	    this.uploadUrl="http://"+window.location.host.split(":")[0]+":82/client-api/common/page/upload";	
+		
+		//	 测试
+//				HOST="http://47.107.105.141:89"
+//			    ="http://47.107.105.141:89/client-api/"
+		}else{
+			
+		//	正式
+//				HOST="http://hlh.gzsqwhcm.com:82"
+//			 PREFIX_URL="http://hlh.gzsqwhcm.com:82/client-api/"
+			 
+		//	 测试
+//			 HOST="http://47.107.105.141:89"
+			 this.uploadUrl="http://47.107.105.141:89/client-api/"
+		
+		}
+  	
+  	
     this.get_List();
   },
   methods: {
@@ -253,6 +288,7 @@ export default {
         this.save()
         this.$nextTick(() => {
           this.random = Math.random();
+          this.$router.go(0	)
         });
       } else {
         this.$message({
@@ -369,6 +405,9 @@ export default {
     width: 100%;
     padding-top: 40px;
     overflow: hidden;
+    .detial_left{
+    	height:500px!important
+    }
     .detial_left,
     .detial_right {
       float: left;

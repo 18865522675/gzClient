@@ -126,7 +126,7 @@ export default {
           callback: action => {
            	if(action=="confirm"){
            		this.$api.curriculumLearning.del_qa(item.id).then(()=>{
-           			this.$message.success("讨论提问内容成功!");
+           			this.$message.success("内容删除成功!");
            			this.get_discuss_content();
            		})
            	}
