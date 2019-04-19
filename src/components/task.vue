@@ -19,14 +19,18 @@
             <div class="kf-curMy-taskLook-name">一、单选题</div>
             <!--小题-->
             <div class="kf-curMy-taskLook-item" v-for="(item, index) in radioList" :key="index">
-              <div class="kf-curMy-taskLook-tit">{{index+1}}. {{item.content}}</div>
+              <div class="kf-curMy-taskLook-tit" v-if="item.content.indexOf('http')>-1">{{index+1}}.<tableCover :url="item.content"></tableCover></div>
+              <div class="kf-curMy-taskLook-tit" v-else>{{index+1}}. {{item.content}}</div>
               <div class="taskLook-answer column">
                 <div class="taskLook-answer-item" v-for="(optItem, optIndex) in item.options" :key="optIndex">
                   <label class="taskLook-answer-label">
                   	<span style="display: inline-block;margin-left: -25px;">({{changeNum(optIndex)}})</span>
                     <input type="radio" :disabled="isSee" :name="'radio1_'+index" v-model="item.check" :value="changeNum(optIndex)">
                     <i></i>
-                    <span class="taskLook-answer-name" style="display: inline-block;margin-left: 40px;">{{optItem}}</span>
+                    <!--<span class="taskLook-answer-name" style="display: inline-block;margin-left: 40px;" v-if="optItem.indexOf('http')>-1">-->
+                    	<tableCover :url="optItem"  v-if="optItem.indexOf('http')>-1"></tableCover>
+                    <!--</span>-->
+                    <span class="taskLook-answer-name" style="display: inline-block;margin-left: 40px;" v-else>{{optItem}}</span>
                   </label>
                 </div>
               </div>
@@ -37,14 +41,20 @@
             <div class="kf-curMy-taskLook-name">二、多选题</div>
             <!--小题-->
             <div class="kf-curMy-taskLook-item" v-for="(item, index) in checkList" :key="index">
-              <div class="kf-curMy-taskLook-tit">{{index+1}}. {{item.content}}</div>
+              <!--<div class="kf-curMy-taskLook-tit">{{index+1}}. {{item.content}}</div>-->
+              <div class="kf-curMy-taskLook-tit" v-if="item.content.indexOf('http')>-1">{{index+1}}.<tableCover :url="item.content"></tableCover></div>
+              <div class="kf-curMy-taskLook-tit" v-else>{{index+1}}. {{item.content}}</div>
               <div class="taskLook-answer column">
                 <div class="taskLook-answer-item" v-for="(optItem, optIndex) in item.options" :key="optIndex">
                   <label class="taskLook-answer-label">
                   	<span style="display: inline-block;margin-left: -25px;">({{changeNum(optIndex)}})</span>
                     <input type="checkbox"   :name="'check2_'+index" v-model="item.check" :value="changeNum(optIndex)">
                     <i></i>
-                    <span class="taskLook-answer-name"  style="display: inline-block;margin-left: 40px;">{{optItem}}</span>
+                    <tableCover :url="optItem"  v-if="optItem.indexOf('http')>-1"></tableCover>
+                    <!--</span>-->
+                    <span class="taskLook-answer-name" style="display: inline-block;margin-left: 40px;" v-else>{{optItem}}</span>
+                    
+                    <!--<span class="taskLook-answer-name"  style="display: inline-block;margin-left: 40px;">{{optItem}}</span>-->
                   </label>
                 </div>
               </div>
@@ -61,13 +71,18 @@
                   <img :src="$api.global.img+item.exerciseName" alt="" class="">
                 </div>
               </div>-->
-              <div class="kf-curMy-taskLook-tit" >{{index+1}}. {{item.content}}</div>
+              <!--<div class="kf-curMy-taskLook-tit" >{{index+1}}. {{item.content}}</div>-->
+              <div class="kf-curMy-taskLook-tit" v-if="item.content.indexOf('http')>-1">{{index+1}}.<tableCover :url="item.content"></tableCover></div>
+              <div class="kf-curMy-taskLook-tit" v-else>{{index+1}}. {{item.content}}</div>
               <div class="taskLook-answer">
                 <div class="taskLook-answer-item" v-for="(optItem, optIndex) in item.options" :key="optIndex">
                   <label class="taskLook-answer-label">			
                     <input type="radio" :disabled="isSee" :name="'judge3_'+index" v-model="item.check" :value="changeNum(optIndex)">
                     <i></i>
-                    <span class="taskLook-answer-name">{{optItem}}</span>
+                    <!--<span class="taskLook-answer-name">{{optItem}}</span>-->
+                    <tableCover :url="optItem"  v-if="optItem.indexOf('http')>-1"></tableCover>
+                    <!--</span>-->
+                    <span class="taskLook-answer-name" style="display: inline-block;margin-left: 40px;" v-else>{{optItem}}</span>
                   </label>
                 </div>
               </div>
@@ -85,6 +100,7 @@
 
 <script>
 import "../assets/css/curriculumLearning.less";
+import tableCover from "@/components/tableCover.vue";
 export default {
   data() {
     return {
@@ -105,6 +121,9 @@ export default {
         this.get_task_list();
       }
     }
+  },
+  components:{
+  	tableCover
   },
   mounted() {
   	this.get_task_list();

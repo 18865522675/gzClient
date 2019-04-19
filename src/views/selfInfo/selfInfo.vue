@@ -85,7 +85,7 @@
               :show-file-list="false"
               :before-upload="beforeAvatarUpload"
               :with-credentials="true"  v-if="isUp">
-              <el-button size="small" type="primary" class="setinfo_upload" v-if="isUp">上传头9像</el-button>
+              <el-button size="small" type="primary" class="setinfo_upload" v-if="isUp">上传头像</el-button>
             </el-upload>
               <el-button size="small" type="primary" class="setinfo_upload" @click="sureSaveUpload"  v-else>保存头像</el-button>
           </el-form-item>

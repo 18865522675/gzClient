@@ -9,12 +9,14 @@
   				<el-tabs type="border-card">
 				  <el-tab-pane label="毕业设计">
 				  	<el-steps :active="active" style="margin-top:50px">
-					  <el-step title="选题" icon="el-icon-edit" data-id="0" @click.native="clickAction(0,'selectTopic')">
+				  	<el-step title="设计申请" icon="el-icon-edit" data-id="0" @click.native="clickAction(0,'designApply')">
 					  </el-step>
-					  <el-step title="开题" icon="el-icon-upload" data-id="1"  @click.native="clickAction(1,'openTopic')"></el-step>
-					  <el-step title="论文" icon="el-icon-picture" @click.native="clickAction(2,'graduatePaper')"></el-step>
-					  <el-step title="答辩" icon="el-icon-picture" @click.native="clickAction(3,'debate')"></el-step>
-					  <el-step title="学位" icon="el-icon-picture" @click.native="clickAction(4,'degree')"></el-step>
+					  <el-step title="选题" icon="el-icon-edit" data-id="0" @click.native="clickAction(1,'selectTopic')">
+					  </el-step>
+					  <el-step title="开题" icon="el-icon-upload" data-id="1"  @click.native="clickAction(2,'openTopic')"></el-step>
+					  <el-step title="论文" icon="el-icon-picture" @click.native="clickAction(3,'graduatePaper')"></el-step>
+					  <el-step title="答辩" icon="el-icon-picture" @click.native="clickAction(4,'debate')"></el-step>
+					  <el-step title="学位" icon="el-icon-picture" @click.native="clickAction(5,'degree')"></el-step>
 					</el-steps>
 					<div>
 						<router-view></router-view>
