@@ -12,4 +12,16 @@ export default {
   addDirection: params => $.post("/thesis/topic/choose/"+params.topicId, params), //添加选题
   
   designApply: params => $.post("/thesis/apply", params), //添加选题
+  
+  uploadOpen: params => $.post("/thesis/topic/start/"+params.topicId, params), //添加选题
+  
+  getHistoryList: params => $.get("/thesis/history/list", params), //历史记录
+  
+  uploadGraduatePaper: params => $.post("/thesis/thesis/commit/"+params.topicId, params), //添加选题
+  
+  debateApply: params => $.post("/thesis/thesis/reply/"+params, {}), //添加选题
+  
+ 	degreeApply: params => $.post("/thesis/degree/"+params, {}), //添加选题
+  
+  
 };

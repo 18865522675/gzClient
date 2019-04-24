@@ -1,10 +1,11 @@
 <template>
 	<div>
 		<div style="text-align: center" class="marT40">
-			<el-button  plain round @click="showDialog" v-if="!stepInfo.auditStatus||stepInfo.auditStatus==3">{{stepInfo.auditStatus==3?'重新选题':'开始选题'}}</el-button>
+			<el-button  plain round @click="showDialog" v-if="(stepInfo.step==0&&stepInfo.auditStatus==2)||(stepInfo.step==1&&stepInfo.auditStatus==3)">{{stepInfo.auditStatus==3?'重新选题':'开始选题'}}</el-button>
 			<div v-if="stepInfo.auditStatus">
-				
+				<paperAudit :index="1" v-if='stepInfo.auditStatus==1'></paperAudit>
 			</div>
+			
 		</div>
 		<el-dialog
 		  title="论文选题"
@@ -38,6 +39,7 @@
 	</div>
 </template>
 <script>
+	import paperAudit from "@/components/paperAudit";
 	export default{
 		data(){
 			return {
@@ -67,6 +69,9 @@
 		},
 		created(){
 			
+		},
+		components:{
+			paperAudit
 		},
 		mounted(){
 			this.getStepInfo()

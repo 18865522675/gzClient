@@ -1,7 +1,10 @@
 <template>
 	<div>
 		<div style="text-align: center" class="marT40">
-			<el-button  plain round @click="designApply">设计申请</el-button>
+			<el-button  plain round @click="designApply"  v-if="!stepInfo">设计申请</el-button>
+			<div v-else   class="waitClass">
+				设计申请状态 : <span :style="{'color':arr[stepInfo.auditStatus-1]}">{{forAudit(stepInfo.auditStatus)}}</span>
+			</div>
 		</div>
 	</div>
 </template>
@@ -30,7 +33,8 @@
 		            { required: true, message: '请先选择选题名称', trigger: 'blur' },
 		          ],
 		       },
-		       stepInfo:{}
+		       stepInfo:{},
+		       arr:['orange','green','red']
 			}
 		},
 		created(){
@@ -60,10 +64,23 @@
 	            message: '已取消申请'
 	          });          
 	        });
-			}
+			},
+			forAudit(val){
+		   	switch(val){
+		   		case 1:return '待审核';
+		   		case 2:return '通过';
+		   		case 3:return '拒绝';
+		   	}
+		   }
 		}
 	}
 </script>
 
 <style lang="less">
+		.waitClass{
+		text-align: center;
+		line-height: 100px;
+		font-weight: bold;
+		font-size: 18px;
+	}
 </style>
