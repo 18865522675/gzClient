@@ -4,7 +4,7 @@ const router_module = {
     title: "毕业设计"
   },
   component: resolve => require(["../views/paper/paper.vue"], resolve),
-  redirect:"/paper/paperDesign",
+  redirect:"/paper/designApply",
   children: [
     {
       path: "/paper/paperDesign",

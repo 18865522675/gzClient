@@ -5,7 +5,7 @@
 				<uploadImg title='开题报告' @setData="uploadOk"></uploadImg>
 				<el-button  size="small" type="primary" style="margin-top:20px" v-if="form.attachmentUrl" @click="uploadPaper">上传</el-button>
 			</div>
-			<paperAudit  :index="2"  v-if="stepInfo.step==2"></paperAudit>
+			<paperAudit  :index="2"  v-if="stepInfo.step==2" ref="paperAudit"></paperAudit>
 		</div>
 	</div>
 </template>
@@ -53,6 +53,7 @@
 				}).then((res)=>{
 					this.$message.success("开题报告上传成功");
 					this.getStepInfo();
+					this.$refs.paperAudit.getStepInfo()
 				})
 			}
 		}

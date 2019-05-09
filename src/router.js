@@ -47,7 +47,7 @@ export default new Router({
          router_courseScore, //消息
          router_teachPlan,
          router_examArrange,
-         router_paper
+//       router_paper
 //      router_serviceFeedback //服务反馈
       ]
     }

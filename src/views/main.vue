@@ -26,6 +26,9 @@
     			<router-view ></router-view>
     	</div>
     </div>
+    <!--<div class="bigTopLine" @click.stop>
+    	
+    </div>-->
     <!--<router-view class="m-main"/>-->
     <!--<div class="footer" v-if="!crumbsStatus">-->
       <!--<div class="footer-box">-->
@@ -83,6 +86,9 @@ export default {
 };
 </script>
 <style type="text/css" lang="less">
+	body{
+		position: relative!important;
+	}
 	.mainInfo{
 		padding-top: 20px;
 		width: 1200px;
@@ -137,4 +143,12 @@ export default {
 			border: 2px solid gray;
 		}
 	}
+			.bigTopLine{
+			position:absolute;
+			height: 30px!important;
+			background: black;
+			bottom: 0px!important;
+			width: 100%;
+			z-index: 100000;
+		}
 </style>

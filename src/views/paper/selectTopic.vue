@@ -3,7 +3,7 @@
 		<div style="text-align: center" class="marT40">
 			<el-button  plain round @click="showDialog" v-if="(stepInfo.step==0&&stepInfo.auditStatus==2)||(stepInfo.step==1&&stepInfo.auditStatus==3)">{{stepInfo.auditStatus==3?'重新选题':'开始选题'}}</el-button>
 			<div v-if="stepInfo.auditStatus">
-				<paperAudit :index="1" v-if='stepInfo.auditStatus==1'></paperAudit>
+				<paperAudit :index="1" v-if='stepInfo.auditStatus==1' ref="paperAudit"></paperAudit>
 			</div>
 			
 		</div>
@@ -89,7 +89,8 @@
 		            this.$api.paper.addDirection(this.dirctionForm).then((res)=>{
 		            	this.$message.success("选题选择成功");
 		            	this.dialogVisible=false;
-		            	
+		            	this.getStepInfo(); 
+		            	this.$refs.paperAudit.getStepInfo()
 		            })
 		          } else {
 		            console.log('error submit!!');

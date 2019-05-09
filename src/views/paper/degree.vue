@@ -50,6 +50,9 @@
 				})
 			},
 			designApply(){
+			if(!this.stepInfo.replyScore){
+				return this.$message.warning("暂无答辩成绩，暂时无法申请")
+			}
 			 this.$confirm('您确定要进行学位申请?', '提示', {
 	          confirmButtonText: '确定',
 	          cancelButtonText: '取消',

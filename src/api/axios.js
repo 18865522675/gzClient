@@ -9,7 +9,7 @@ import router from "../router";
 
 // 测试
 // const HOST = "http://61.153.184.193:8081/";
-// const HOST = "http://192.168.1.25:8080/";
+// const HOST = "http://192	.168.1.25:8080/";
 
 //let HOST = "http://47.107.105.141:82/";
 
@@ -22,12 +22,12 @@ let PREFIX_URL=""
 
 if(window.location.href.indexOf("localhost")<0){	
 //		正式
-//	  HOST="http://"+window.location.host.split(":")[0]+":82"
-//	 PREFIX_URL="http://"+window.location.host.split(":")[0]+":82/client-api/";	
+	  HOST="http://"+window.location.host.split(":")[0]+":82"
+	 PREFIX_URL="http://"+window.location.host.split(":")[0]+":82/client-api/";	
 
 //	 测试
-		HOST="http://47.107.105.141:89"
-	 PREFIX_URL="http://47.107.105.141:89/client-api/"
+//		HOST="http://47.107.105.141:89"
+//	 PREFIX_URL="http://47.107.105.141:89/client-api/"
 }else{	
 	
 //	正式
