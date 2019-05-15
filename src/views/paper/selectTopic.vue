@@ -99,11 +99,20 @@
 		        });
 			},
 			radioChange(val){
-				let arr=[]
+				let arr=[];
+				let bArr=[];
 				for(let i of this.directionList){
-					arr.push(i.topicNameList[0])
+					arr.push(i.topicNameList[0]);
+					bArr.push({
+						defined:i.defined,
+						topicId:i.topicNameList[0].topicId
+					})
 				}
-				console.log(val)
+			   	for(let i of bArr){
+			   		if(i.topicId==val){
+						this.isDisable=i.defined==1?false:true;
+					}	
+			   	}
 				for(let i of arr){
 					if(i.topicId==val){
 						this.dirctionForm.topicName=i.topicName;

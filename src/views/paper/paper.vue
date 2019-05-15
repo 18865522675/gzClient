@@ -24,7 +24,7 @@
 				  </el-tab-pane>
 				  <el-tab-pane label="历史记录">
 				  			<div v-if="historyList.length" v-for="(item,index) in historyList"  :key="index" style="width: 60%;margin: 0 auto;margin-top: 30px;">
-									<el-card class="box-card">
+									<el-card class="box-card" v-if="item.step!=0">
 										<div slot="header" class="clearfix">
 									  	 模块 : {{forModule(item.step)}}
 									  </div>
@@ -52,6 +52,29 @@
 									  	</div>
 									  </div>
 									</el-card>
+									
+									<el-card class="box-card" v-else>
+										<div slot="header" class="clearfix">
+									  	 模块 : {{forModule(item.step)}}
+									  </div>
+									  <div class="cardBodyWrap">
+									  	<!--<div>
+									  		截至日期 : 
+									  	</div>-->
+									  	<div>
+									  		申请时间 : {{item.commitTime}}
+									  	</div>
+									  	<div>
+									  		申请状态 : <span :style="{'color':arr[item.auditStatus-1]}">{{forAudit(item.auditStatus)}}</span>
+									  	</div>
+									  	<div>
+									  		老师建议 : {{item.teacherAdvises}}
+									  	</div>
+									  </div>
+									</el-card>
+								</div>
+								<div v-else class="noTip"> 
+									暂无历史记录
 								</div>
 				  </el-tab-pane>
 				</el-tabs>
@@ -274,4 +297,11 @@ export default {
 		
 	}
 }
+.noTip{
+		line-height: 160px;
+		text-align: center;
+		font-size: 22px;
+		font-weight: bold;
+		color: gray;
+	}
 </style>
