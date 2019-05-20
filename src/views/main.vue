@@ -95,7 +95,7 @@ export default {
 		margin: 0 auto;
 		.mainInfo-left{
 			width: 240px;
-			height: 600px;
+			height: 700px;
 			background: #FFFFFF;
 			box-shadow: 4px 0 4px 0 rgba(0,0,0,0.15);
 			.userPic{

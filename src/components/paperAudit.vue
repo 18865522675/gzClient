@@ -12,7 +12,7 @@
 		  		指导老师 : {{stepInfo.teacherName}}
 		  	</div>
 		  	<div>
-		  		题目名称 : {{stepInfo.topicName}}
+		  		{{stepInfo.step==0?'提交时间':'上传时间'}} : {{stepInfo.topicName}}
 		  	</div>
 		  	<div>
 		  		当前状态 : <span :style="{'color':arr[stepInfo.auditStatus-1]}">{{forAudit(stepInfo.auditStatus)}}</span>
@@ -23,7 +23,7 @@
 		  	<div>
 		  		上传时间 : {{$fun.table.time(null,null,stepInfo.commitTime)}}
 		  	</div>
-		  	<div v-if="index==1"	>
+		  	<div v-if="index==1">
 		  		导师邮箱 : {{stepInfo.email}}
 		  	</div>
 		  	<div  v-if="index==1">
@@ -85,10 +85,12 @@
 
 <style lang="less">
 .cardBodyWrap{
+	box-sizing: border-box;
+	padding: 0 70px;
 	div{
+		text-align: left;
 		margin-bottom: 20px;
 		font-size: 14px;
-		
 	}
 }
 </style>

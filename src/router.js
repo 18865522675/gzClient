@@ -47,6 +47,7 @@ export default new Router({
          router_courseScore, //消息
          router_teachPlan,
          router_examArrange,
+         router_paper,
          {
          	 path:'/studentBook',
          	 name:'studentBook',
@@ -54,8 +55,15 @@ export default new Router({
          	 	 title:'学生手册'
          	 },
          	 component: resolve => require(["./views/studentBook.vue"], resolve),
+         },
+         {
+         	 path:'/downloadCenter',
+         	 name:'downloadCenter',
+         	 meta:{
+         	 	 title:'下载中心'
+         	 },
+         	 component: resolve => require(["./views/downloadCenter.vue"], resolve),
          }
-//       router_paper
 //      router_serviceFeedback //服务反馈
       ]
     }

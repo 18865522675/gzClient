@@ -44,11 +44,17 @@
 									  	<div>
 									  		老师建议 : {{item.teacherAdvises}}
 									  	</div>
-									  	<div>
+									  	<div v-if="item.step!=4">
 									  		上传时间 : {{$fun.table.time(null,null,item.commitTime)}}
 									  	</div>
-									  	<div>
+									  	<div  v-if="item.step!=4">
 									  		附件地址 : <a :href="item.attachmentUrl" download v-if="item.attachmentUrl">下载</a> <span v-else style="color:gray">暂无</span>
+									  	</div>
+									  	<div v-if="item.step==4">
+									  		答辩成绩 : {{item.replyScore}}
+									  	</div>
+									  	<div  v-if="item.step==4">
+									  		答辩地址 : {{item.address}}
 									  	</div>
 									  </div>
 									</el-card>
@@ -62,7 +68,7 @@
 									  		截至日期 : 
 									  	</div>-->
 									  	<div>
-									  		申请时间 : {{item.commitTime}}
+									  		申请时间 : {{$fun.table.time(null,null,item.commitTime)}}
 									  	</div>
 									  	<div>
 									  		申请状态 : <span :style="{'color':arr[item.auditStatus-1]}">{{forAudit(item.auditStatus)}}</span>
