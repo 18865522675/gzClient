@@ -31,6 +31,9 @@
 						        <div  class="courseTime">
 						        	{{item.courseCredit}}学分
 						        </div>
+						        <div  class="courseTime" style="font-size: 12px;">
+						        	已学{{transSecond(item.totalStudyTimes)}}
+						        </div>
 						        
 						        <div class="bottom clearfix flex-r" style="align-items: center;justify-content: space-between;">
 						          <time class="hasLearnTime">学习进度：{{item.finishedPercent?(item.finishedPercent*100).toFixed(2):0}}%</time>
@@ -162,6 +165,10 @@ export default {
   			return this.$message.warning("抱歉，您的资料未审核通过，暂时无法学习！")
   		}
     	this.$router.push(`/curriculumLearning/myCourse/${item.courseId}/${item.planId}`)
+    },
+    transSecond(val){
+    	var min=Math.floor(val%3600);
+    	return Math.floor(val/3600) + "时" + Math.floor(min/60) + "分"+ val%60 + "秒";
     }
   }
 };

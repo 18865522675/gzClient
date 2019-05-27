@@ -26,7 +26,7 @@ if(window.location.href.indexOf("localhost")<0){
 //	 PREFIX_URL="http://"+window.location.host.split(":")[0]+":82/client-api/";	
 
 //	 测
-		HOST="http://47.107.105.141:89"
+		HOST="http://47.107.105.141:89"	
 	 PREFIX_URL="http://47.107.105.141:89/client-api/"
 }else{	
 	

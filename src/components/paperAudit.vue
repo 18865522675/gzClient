@@ -8,8 +8,11 @@
 		  	<!--<div>
 		  		截至日期 : 
 		  	</div>-->
-		  	<div>
+		  	<div  v-if="index!=4">
 		  		指导老师 : {{stepInfo.teacherName}}
+		  	</div>
+		  	<div v-if="index==4">
+		  		答辩老师 : {{stepInfo.teacherName}}
 		  	</div>
 		  	<div>
 		  		{{stepInfo.step==0?'提交时间':'上传时间'}} : {{stepInfo.topicName}}
