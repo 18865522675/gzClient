@@ -84,6 +84,9 @@
 				})
 			},
 			addDirection(formName){
+				 if(!this.directionList.length){
+				 	return this.$message.warning("该导师下暂无选题方向，无法提交")
+				 }
 				 this.$refs[formName].validate((valid) => {
 		          if (valid) {
 		            this.$api.paper.addDirection(this.dirctionForm).then((res)=>{

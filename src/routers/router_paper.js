@@ -11,7 +11,7 @@ const router_module = {
       meta: {
         title: "毕业设计"
       },
-      redirect:"/paper/selectTopic",
+      redirect:"/paper/designApply",
       component: resolve => require(["../views/paper/moduleMain.vue"], resolve),
       children:[{
       	path: "/paper/designApply",

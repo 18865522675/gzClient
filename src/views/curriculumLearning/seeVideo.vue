@@ -2,7 +2,7 @@
   <div class="videoWrap">
   	<div class="video-box" id="videoBox"><!--video 盒子-->
     <div class="video-box-body">
-        <video class="video-body" id="videoBody" :src="playUrl">
+        <video class="video-body" ref="videoBody" id="videoBody" :src="playUrl">
             您的浏览器不支持video
         </video>
         <!--控制条盒子-->
@@ -52,7 +52,8 @@ export default {
     return {
     	wareId:"",
     	planId:'',
-    	playUrl:""
+    	playUrl:"",
+    	timer:""
     };
   },
   components: {},
@@ -194,6 +195,11 @@ export default {
         muted();
     });
 		})
+		
+		this.timer=setInterval(()=>{
+			this.setTime()
+		},120000)
+		
 
   },
   computed:{
@@ -207,16 +213,21 @@ export default {
   methods: {
 		stopDel(e){
 			
+		},
+		setTime(){
+			this.$api.curriculumLearning.save_wareTime(this.wareId,{
+				planId:this.planId,
+				position:Math.floor(this.$refs.videoBody.currentTime)
+			}).then(()=>{
+				
+			})
 		}
   },
+  beforeDestroy(){
+  	    this.setTime();
+    clearInterval(this.timer);
+  },
   destroyed(){
-  	console.log(this.wareId)
-	this.$api.curriculumLearning.save_wareTime(this.wareId,{
-		planId:this.planId,
-		position:20
-	}).then(()=>{
-		
-	})
   }
 };
 </script>

@@ -24,7 +24,7 @@
 				  </el-tab-pane>
 				  <el-tab-pane label="历史记录">
 				  			<div v-if="historyList.length" v-for="(item,index) in historyList"  :key="index" style="width: 60%;margin: 0 auto;margin-top: 30px;">
-									<el-card class="box-card" v-if="item.step!=0">
+									<el-card class="box-card" v-if="item.step!=0&&item.step!=5">
 										<div slot="header" class="clearfix">
 									  	 模块 : {{forModule(item.step)}}
 									  </div>
@@ -32,29 +32,56 @@
 									  	<!--<div>
 									  		截至日期 : 
 									  	</div>-->
-									  	<div>
+									  	<div v-if="item.step!=4">
 									  		指导老师 : {{item.teacherName}}
 									  	</div>
+									  	<div v-if="item.step==4">
+									  		答辩老师 : {{item.replyTeachers}}
+									  	</div>
+									  	<div v-if="item.step==1">
+									  		选题方向 : {{item.direction}}
+									  	</div>
+									  	<div v-if="item.step==1">
+									  		导师邮箱 : {{item.email}}
+									  	</div>
+									  	<div  v-if="item.step==4">
+									  		答辩地址 : {{item.address}}
+									  	</div>
+									  	<div  v-if="item.step==4">
+									  		申请时间 : {{$fun.table.time(null,null,item.commitTime)}}
+									  	</div>
+									  	<div  v-if="item.step==4">
+									  		答辩时间 : 
+									  	</div>
+									  	<div   v-if="item.step==4">
+									  		院校回复  : {{item.agreeRemark}}
+									  	</div>
+									  	
 									  	<div>
 									  		题目名称 : {{item.topicName}}
 									  	</div>
 									  	<div>
 									  		审核状态 : <span :style="{'color':arr[item.auditStatus-1]}">{{forAudit(item.auditStatus)}}</span>
 									  	</div>
-									  	<div>
-									  		老师建议 : {{item.teacherAdvises}}
+									  	<div class="flex-r" v-if="item.auditStatus!=1"  style="line-height: 26px;">
+									  		<div style="width: 68px;">
+									  			老师建议 : 
+									  		</div>
+									  		<div style="flex:1;">
+									  			{{item.teacherAdvises}}
+									  		</div>
+									  	</div>
+									  	<div v-if="item.step==5">
+									  		论文成绩 : {{item.score}}
 									  	</div>
 									  	<div v-if="item.step!=4">
 									  		上传时间 : {{$fun.table.time(null,null,item.commitTime)}}
 									  	</div>
-									  	<div  v-if="item.step!=4">
+									  	<div  v-if="item.step!=4&&item.step!=1">
 									  		附件地址 : <a :href="item.attachmentUrl" download v-if="item.attachmentUrl">下载</a> <span v-else style="color:gray">暂无</span>
 									  	</div>
 									  	<div v-if="item.step==4">
 									  		答辩成绩 : {{item.replyScore}}
-									  	</div>
-									  	<div  v-if="item.step==4">
-									  		答辩地址 : {{item.address}}
 									  	</div>
 									  </div>
 									</el-card>
@@ -73,13 +100,13 @@
 									  	<div>
 									  		申请状态 : <span :style="{'color':arr[item.auditStatus-1]}">{{forAudit(item.auditStatus)}}</span>
 									  	</div>
-									  	<div>
+									  	<div  v-if="item.auditStatus!=1" >
 									  		老师建议 : {{item.teacherAdvises}}
 									  	</div>
 									  </div>
 									</el-card>
 								</div>
-								<div v-else class="noTip"> 
+								<div v-if="historyList.length==0" class="noTip"> 
 									暂无历史记录
 								</div>
 				  </el-tab-pane>
@@ -192,7 +219,7 @@ export default {
     		}
     		let arr=['designApply','selectTopic','openTopic','graduatePaper','debate','degree'];
     		let index;
-    		if(res.data.auditStatus==2){
+    		if(res.data.auditStatus==2&&res.data.step!=5){
     			index=res.data.step+1
     		}else{
     			index=res.data.step

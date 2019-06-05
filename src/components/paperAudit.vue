@@ -12,10 +12,10 @@
 		  		指导老师 : {{stepInfo.teacherName}}
 		  	</div>
 		  	<div v-if="index==4">
-		  		答辩老师 : {{stepInfo.teacherName}}
+		  		答辩老师 : {{stepInfo.replyTeachers}}
 		  	</div>
 		  	<div>
-		  		{{stepInfo.step==0?'提交时间':'上传时间'}} : {{stepInfo.topicName}}
+		  		题目名称 : {{stepInfo.topicName}}
 		  	</div>
 		  	<div>
 		  		当前状态 : <span :style="{'color':arr[stepInfo.auditStatus-1]}">{{forAudit(stepInfo.auditStatus)}}</span>
@@ -24,7 +24,7 @@
 		  		老师建议 : {{stepInfo.teacherAdvises}}
 		  	</div>
 		  	<div>
-		  		上传时间 : {{$fun.table.time(null,null,stepInfo.commitTime)}}
+		  		{{stepInfo.step==0?'提交时间':'上传时间'}} : {{$fun.table.time(null,null,stepInfo.commitTime)}}
 		  	</div>
 		  	<div v-if="index==1">
 		  		导师邮箱 : {{stepInfo.email}}

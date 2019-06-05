@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div style="text-align: center" class="marT40">
-			<el-button  plain round @click="designApply" v-if="(stepInfo.step==4&&stepInfo.auditStatus==2)||(stepInfo.step==4&&stepInfo.auditStatus==3)">申请学位</el-button>
+			<el-button  plain round @click="designApply" v-if="(stepInfo.step==4&&stepInfo.auditStatus==2)||(stepInfo.step==5&&stepInfo.auditStatus==3)">申请学位</el-button>
 			<div v-else   class="waitClass">
 				学位申请状态 : <span :style="{'color':arr[stepInfo.auditStatus-1]}">{{forAudit(stepInfo.auditStatus)}}</span>
 			</div>
