@@ -209,7 +209,7 @@ export default {
 			 
 		//	 测试
 //			 HOST="http://47.107.105.141:89"
-			 this.uploadUrl="http://47.107.105.141:89/client-api/"
+			 this.uploadUrl="http://47.107.105.141:89/client-api/common/page/upload"
 		
 		}
   	
@@ -217,7 +217,7 @@ export default {
     this.get_List();
   },
   methods: {
-  	  	sureSaveUpload(){
+  	sureSaveUpload(){
   		this.$api.setInfo.sureSaveUpload({
   			logo:this.formData.photo
   		}).then((res)=>{
