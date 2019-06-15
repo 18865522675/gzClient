@@ -44,21 +44,24 @@
 									  	<div v-if="item.step==1">
 									  		导师邮箱 : {{item.email}}
 									  	</div>
-									  	<div  v-if="item.step==4">
+									  	<div  v-if="item.step==4&&item.auditStatus!=1">
 									  		答辩地址 : {{item.address}}
 									  	</div>
-									  	<div  v-if="item.step==4">
+									  	<div  v-if="item.step==4&&item.auditStatus!=1">
 									  		申请时间 : {{$fun.table.time(null,null,item.commitTime)}}
 									  	</div>
-									  	<div  v-if="item.step==4">
+									  	<div  v-if="item.step==4&&item.auditStatus!=1">
 									  		答辩时间 : 
 									  	</div>
-									  	<div   v-if="item.step==4">
+									  	<div   v-if="item.step==4&&item.auditStatus!=1">
 									  		院校回复  : {{item.agreeRemark}}
 									  	</div>
 									  	
 									  	<div>
 									  		题目名称 : {{item.topicName}}
+									  	</div>
+									  	<div v-if="item.step==3">
+									  		得分 : {{item.replyScore}}
 									  	</div>
 									  	<div>
 									  		审核状态 : <span :style="{'color':arr[item.auditStatus-1]}">{{forAudit(item.auditStatus)}}</span>
@@ -80,7 +83,7 @@
 									  	<div  v-if="item.step!=4&&item.step!=1">
 									  		附件地址 : <a :href="item.attachmentUrl" download v-if="item.attachmentUrl">下载</a> <span v-else style="color:gray">暂无</span>
 									  	</div>
-									  	<div v-if="item.step==4">
+									  	<div v-if="item.step==4&&item.auditStatus!=1">
 									  		答辩成绩 : {{item.replyScore}}
 									  	</div>
 									  </div>
@@ -185,7 +188,9 @@ export default {
       this.getList();
     },
     getHistoryList(){
-    	this.$api.paper.getHistoryList().then((res)=>{
+    	this.$api.paper.getHistoryList({
+    		pageSize:50
+    	}).then((res)=>{
     		this.historyList=res.data.pageList
     	})
     },

@@ -3,7 +3,7 @@
 		<div style="text-align: center" class="marT40">
 			<el-button  plain round @click="showDialog" v-if="(stepInfo.step==0&&stepInfo.auditStatus==2)||(stepInfo.step==1&&stepInfo.auditStatus==3)">{{stepInfo.auditStatus==3?'重新选题':'开始选题'}}</el-button>
 			<div v-if="stepInfo.auditStatus">
-				<paperAudit :index="1" v-if='stepInfo.auditStatus==1' ref="paperAudit"></paperAudit>
+				<paperAudit :index="1" v-if='stepInfo.auditStatus!=2' ref="paperAudit"></paperAudit>
 			</div>
 			
 		</div>
@@ -21,12 +21,20 @@
 		          	</el-option>
 		          </el-select>
 		        </el-form-item>
-		        <el-form-item label="选题方向" prop="topicId" v-if="directionList.length">
+		        <el-form-item label="选题方向" prop="dirctionName" v-if="directionList.length">
 		          <div v-for="(item,index) in directionList" :key="index">
-					<el-radio v-model="dirctionForm.topicId" @change="radioChange" :label="item.topicNameList[0].topicId">{{item.direction}}</el-radio>	  
+					<el-radio v-model="dirctionForm.dirctionName" @change="radioChange" :label="item.direction">{{item.direction}}</el-radio>	  
 		          </div>
 		        </el-form-item>
-		        <el-form-item label="选题名称" prop="topicName" v-if="dirctionForm.topicId">
+		        <el-form-item label="选题选择" prop="topicName" v-if="dirctionForm.dirctionName">
+		          <el-select  style="width:100%" v-model="dirctionForm.topicId" @change="topicNameChange" placeholder="请选择选题名称">
+		          	<el-option v-for="(item,index) in topicNameList"  :key="index" :value="item.topicId" :label="item.topicName">
+		
+		          	</el-option>
+		          </el-select>
+		          <!--<el-input   :disabled="isDisable" v-model.trim="dirctionForm.topicName"  placeholder="请输入选题名称"></el-input>-->
+		        </el-form-item>
+		        <el-form-item label="选题名称" prop="topicName" v-if="dirctionForm.dirctionName">
 		          <el-input   :disabled="isDisable" v-model.trim="dirctionForm.topicName"  placeholder="请输入选题名称"></el-input>
 		        </el-form-item>
 		      </el-form>
@@ -50,21 +58,24 @@
 				directionList:[],
 				dirctionForm:{
 					topicId:"",
-					topicName:""
+					topicName:"",
+					dirctionName:"",
+					topicNameId:""
 				},
 				isDisable:false,
 				rules: {
 		          teacherId: [
 		            { required: true, message: '请先选择导师', trigger: 'blur' },
 		          ],
-		          topicId: [
+		          dirctionName: [
 		            { required: true, message: '请先选择选题方向', trigger: 'blur' },
 		          ],
 		          topicName: [
 		            { required: true, message: '请先选择选题名称', trigger: 'blur' },
 		          ],
 		       },
-		       stepInfo:{}
+		       stepInfo:{},
+		       topicNameList:[]
 			}
 		},
 		created(){
@@ -101,26 +112,43 @@
 		          }
 		        });
 			},
+			topicNameChange(val){
+				this.topicNameList.map((item)=>{
+					if(item.topicId==val){
+						this.dirctionForm.topicName=item.topicName
+					}
+				})
+			},
 			radioChange(val){
 				let arr=[];
-				let bArr=[];
-				for(let i of this.directionList){
-					arr.push(i.topicNameList[0]);
-					bArr.push({
-						defined:i.defined,
-						topicId:i.topicNameList[0].topicId
-					})
-				}
-			   	for(let i of bArr){
-			   		if(i.topicId==val){
-						this.isDisable=i.defined==1?false:true;
-					}	
-			   	}
-				for(let i of arr){
-					if(i.topicId==val){
-						this.dirctionForm.topicName=i.topicName;
+				this.directionList.map((item)=>{
+					if(item.direction==val){
+						this.topicNameList=item.topicNameList;
+						this.isDisable=item.defined==1?true:false;
 					}
-				}
+				});
+				
+//				let arr=[];
+//				let bArr=[];
+//				for(let i of this.directionList){
+//					arr.push(...i.topicNameList);
+//					bArr.push({
+//						defined:i.defined,
+//						topicId:i.topicNameList[0].topicId
+//					})
+//				}
+//			   	for(let i of bArr){
+//			   		if(i.topicId==val){
+//						this.isDisable=i.defined==1?false:true;
+//					}	
+//			   	}
+//				for(let i of arr){
+//					if(i.topicId==val){
+////						this.topicNameList.push(i);
+////						console.log(this.topicNameList)
+//						this.dirctionForm.topicName=i.topicName;
+//					}
+//				}
 			},
 			showDialog(){
 				this.dialogVisible=true;
