@@ -5,7 +5,7 @@
 			<div v-else   class="waitClass">
 				设计申请状态 : <span :style="{'color':arr[stepInfo.auditStatus-1]}">{{forAudit(stepInfo.auditStatus)}}</span>
 			</div>
-						<el-button  plain round @click="designApply"  v-if="stepInfo.step==0&&stepInfo.auditStatus==3">再次申请</el-button>
+						<el-button  plain round @click="designApply"  v-if="stepInfo&&stepInfo.step==0&&stepInfo.auditStatus==3">再次申请</el-button>
 			
 		</div>
 	</div>
@@ -48,7 +48,7 @@
 		methods:{
 			getStepInfo(){
 				this.$api.paper.getStepInfo().then((res)=>{
-					this.stepInfo=res.data
+					this.stepInfo=res.data;
 				})
 			},
 			designApply(){

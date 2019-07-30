@@ -14,6 +14,7 @@
         <div class="kf-curMy-taskLook-bd s-center" v-show="exerciseNum ===1">暂无习题</div>
           <div class="kf-curMy-taskLook-bd" v-show="exerciseNum ===0">
           <div class="kf-curMy-taskLook-cap">作业</div>
+          <div  v-if="isSee"  style="text-align: center;font-size: 20px;color: green;line-height: 40px;">得分:{{score}}</div>
           <!--大题--单选-->
           <div class="kf-curMy-taskLook-group" v-if="radioList.length">
             <div class="kf-curMy-taskLook-name">一、单选题</div>
@@ -111,7 +112,8 @@ export default {
       worksList: [],
       workId: "",
       exerciseNum: 1,
-      isSee:false
+      isSee:false,
+      score:""
     };
   },
   props: ["planId"],
@@ -189,6 +191,7 @@ export default {
     	this.$api.curriculumLearning
         .get_task_finishInfo(this.workId)
         .then(res => {
+        	this.score=res.data.workScore;
           if (!res.data.exercises) {
             this.exerciseNum = 1;
             return;

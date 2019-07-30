@@ -59,8 +59,9 @@
       </div>
     </div>
    	<div class="headLogo">
-   			<div class="headlogoMain">
+   			<div class="headlogoMain flex-r" style="align-items: center;">
    				<img :src="schoolInfo.logo" @error="errorImg(schoolInfo)" alt=""  style="width: 80px;height:80px"/>
+   				<span class="schoolName">{{userInfo.siteName}}</span>
    			</div>
    			<div class="allCode">
    				<div class="codeWrap">
@@ -328,6 +329,13 @@ export default {
 	position: fixed;
 	right: 0px;
 	top:40px
+}
+.schoolName{
+	font-size: 18px;
+	display: inline-block;
+	margin-left: 20px;
+	color: darkslategray;
+	font-family: "perpetua titling mt";
 }
 // .logo_img{
 //   background-position: left center;

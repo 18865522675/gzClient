@@ -51,10 +51,13 @@
 									  		申请时间 : {{$fun.table.time(null,null,item.commitTime)}}
 									  	</div>
 									  	<div  v-if="item.step==4&&item.auditStatus!=1">
-									  		答辩时间 : 
+									  		答辩时间 : {{$fun.table.time(null,null,item.replayStartTime)}}
 									  	</div>
 									  	<div   v-if="item.step==4&&item.auditStatus!=1">
 									  		院校回复  : {{item.agreeRemark}}
+									  	</div>
+									  	<div   v-if="item.step==4&&item.auditStatus==1">
+									  		申请时间  : {{$fun.table.time(null,null,item.commitTime)}}
 									  	</div>
 									  	
 									  	<div>

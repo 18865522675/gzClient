@@ -124,7 +124,7 @@
 				this.directionList.map((item)=>{
 					if(item.direction==val){
 						this.topicNameList=item.topicNameList;
-						this.isDisable=item.defined==1?true:false;
+						this.isDisable=item.defined==1?false:true;
 					}
 				});
 				

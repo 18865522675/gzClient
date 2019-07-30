@@ -53,6 +53,9 @@
         </div>-->
       </div>
     </div>
+    <div class="loginTip">
+    	成人高等教育网络学习平台
+    </div>
     <div class="footer-small fixed">version: 4.0.1</div>
   </div>
 </template>
@@ -171,6 +174,16 @@ export default {
 };
 </script>
 <style lang="less">
+	.loginTip{
+		font-size: 26px;
+	display: inline-block;
+	margin-left: 20px;
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	color: darkslategray;
+	font-family: "perpetua titling mt";
+	}
 .login-bg {
   position: absolute;
   left: 0;
