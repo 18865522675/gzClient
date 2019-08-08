@@ -57,6 +57,14 @@ export default new Router({
          	 component: resolve => require(["./views/studentBook.vue"], resolve),
          },
          {
+         	 path:'/noticeBook',
+         	 name:'noticeBook',
+         	 meta:{
+         	 	 title:'通知书'
+         	 },
+         	 component: resolve => require(["./views/noticeBook/noticeBook.vue"], resolve),
+         },
+         {
          	 path:'/downloadCenter',
          	 name:'downloadCenter',
          	 meta:{

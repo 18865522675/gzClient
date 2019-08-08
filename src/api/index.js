@@ -14,6 +14,7 @@ import courseScore from "./courseScore";
 import teachPlan from "./teachPlan";
 import exam from "./exam";
 import paper from "./paper";
+import noticeBook from "./noticeBook";
 //模块目录
 const api = {
   global: {
@@ -35,7 +36,8 @@ const api = {
   courseScore,
   teachPlan,
   exam,
-  paper
+  paper,
+  noticeBook
 };
 
 export default api;
