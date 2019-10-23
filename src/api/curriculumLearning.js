@@ -35,8 +35,9 @@ get_task_list: params => $.get("course/work/"+params+"/listWork", {}),
 ////获取作业列表
 commitTask: params => $.get("course/work/"+params+"/commitWork", {}),
 
-////获取作业列表
 get_task_info: params => $.get("course/work/"+params+"/listExercise", {}),
+
+get_exam_info: params => $.get("/other/online/"+params+"/listExercise", {}),
 
 get_task_finishInfo: params => $.get("course/work/"+params+"/listFinishedExercise", {}),
 
@@ -62,6 +63,12 @@ edit_qa: (id,params) => $.put("/course/qa/update/"+id, params),
 del_qa: (id) => $.put("/course/qa/remove/"+id,{}),
 
 save_task:(workId,params) => $.post("/course/work/"+workId+"/commitWork", params),
+
+save_exam:(taskId,params) => $.post("/other/online/"+taskId+"/commit", params),
+
+
+//考试
+get_exam_list: (params) => $.get("/other/online/listExams/"+params, {}),
 
 
 ////获取作业详情

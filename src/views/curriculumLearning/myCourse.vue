@@ -37,6 +37,7 @@
       <!--<div class="kf-curMy-tab-item" :class="{on: showTab==4}" @click="tab_change(4)">评价</div>-->
        <div class="kf-curMy-tab-item" :class="{on: showTab==5}" @click="tab_change(5)">主题讨论</div>
         <div class="kf-curMy-tab-item" :class="{on: showTab==6}" @click="tab_change(6)">问答</div>
+        <div class="kf-curMy-tab-item" :class="{on: showTab==7}" @click="tab_change(7)">考试</div>
     </div>
     <!--课件-->
     <div class="kf-curMy-bd" v-if="showTab==0">
@@ -80,6 +81,10 @@
      	<aq></aq>
       <!--<evaluate :wareCourseId="sign.wareCourseId" :planId="sign.planId" :getList.sync="starsList"></evaluate>-->
     </div>
+    <div class="kf-curMy-bd" v-if="showTab==7">
+     	<exam :planId="sign.planId" :getList.sync="worksList"></exam>
+      <!--<evaluate :wareCourseId="sign.wareCourseId" :planId="sign.planId" :getList.sync="starsList"></evaluate>-->
+    </div>
   </div>
 </template>
 
@@ -90,6 +95,7 @@ import task from "../../components/task";
 import leavingMessage from "../../components/leavingMessage";
 import evaluate from "../../components/evaluate";
 import aq from "../../components/aq";
+import exam from "../../components/exam";
 import "../../assets/css/curriculumLearning.less";
 
 export default {
@@ -130,7 +136,8 @@ export default {
     leavingMessage,
     evaluate,
     discuss,
-    aq
+    aq,
+    exam
   },
   mounted() {
     this.sign = this.$route.params;

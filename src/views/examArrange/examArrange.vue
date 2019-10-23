@@ -4,6 +4,9 @@
   	<div class="courseStudyWrap commonWrapSty">
   			<div class="courseStudyWrap-title flex-r">
   				<span style="font-size: 18px;">考试安排 <span style="font-size: 13px;">EXAM ARRANGE</span></span>
+  				<div style="cursor: pointer;color: red;" @click="downloadZZK">
+  					准考证下载
+  				</div>
   				<div class="termSel">
   					  <el-select v-model="term" @change="changeCourse" placeholder="请选择学期">
 						    <el-option
@@ -92,6 +95,20 @@ export default {
 		this.getList()
   },
   methods: {
+  	downloadZZK(){
+//		this.$api.exam.doanloadZZK().then((res)=>{
+//			if(res.data!='null'){
+//				window.location.href=res.data;
+//				return
+//			}
+//			this.$message.warning("文件地址不存在")
+//		}).catch((e)=>{
+//			this.$message.warning("下载失败")
+//		})
+//			window.location.href="http://47.107.105.141:89/client-api/other/exam/loadExamCard";
+			
+			window.location.href="http://"+window.location.host.split(":")[0]+":82/client-api/other/exam/loadExamCard";
+  	},
   	changeCourse(val){
   		this.term=val;
   	  this.ready_ajax()
